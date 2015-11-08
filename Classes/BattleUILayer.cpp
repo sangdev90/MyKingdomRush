@@ -7,6 +7,8 @@
 //
 
 #include "BattleUILayer.hpp"
+#include "ToolFunction.hpp"
+#include "BattleDisplayBoardSprite.hpp"
 
 BattleUILayer *BattleUILayer::create(){
     BattleUILayer *pRet = new (std::nothrow) BattleUILayer();
@@ -26,4 +28,8 @@ bool BattleUILayer::init(){
     }
     
     return true;
+}
+
+void BattleUILayer::layoutUI(){
+    
 }

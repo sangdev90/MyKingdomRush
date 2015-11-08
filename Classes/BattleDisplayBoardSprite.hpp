@@ -22,9 +22,9 @@ public:
     
     virtual void onEnter();
     
-    void updateHP();
-    void updateCoin();
-    void updateWave();
+    void updateHP(int numberOfHP);
+    void updateCoin(int numberOfCoin);
+    void updateWave(int numberOfWave);
     
 private:
     

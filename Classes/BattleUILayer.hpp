@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "cocos2d.h"
 
+class BattleDisplayBoardSprite;
+
 class BattleUILayer : public cocos2d::Layer{
 public:
     
@@ -19,7 +21,11 @@ public:
     
     virtual bool init();
     
+    void layoutUI();
+    
 private:
+    
+    BattleDisplayBoardSprite *_displayBoardSprite;
 };
 
 #endif /* BattleUILayer_hpp */

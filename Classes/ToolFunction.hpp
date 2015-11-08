@@ -68,5 +68,29 @@ inline void prepareCredits(){
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(CREDITS_UI_PLIST);
 }
 
+inline std::string int2string(int number){
+    char *str;
+    sprintf(str, "%d", number);
+    return std::string(str);
+}
+
+inline int string2int(const std::string &string){
+    int number;
+    sscanf(string.c_str(), "%d", &number);
+    return number;
+}
+
+inline std::string double2string(double number){
+    char *str;
+    sprintf(str, "%f", number);
+    return std::string(str);
+}
+
+inline double string2double(const std::string &string){
+    double number;
+    sscanf(string.c_str(), "%lf", &number);
+    return number;
+}
+
 
 #endif /* ToolFunction_hpp */
