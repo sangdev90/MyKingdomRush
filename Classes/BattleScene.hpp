@@ -13,7 +13,6 @@
 #include "cocos2d.h"
 
 class BattleLayer;
-class BattleUILayer;
 
 class BattleScene : public cocos2d::Scene{
 public:

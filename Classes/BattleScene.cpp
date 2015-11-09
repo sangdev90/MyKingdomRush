@@ -29,8 +29,6 @@ bool BattleScene::init(){
         return false;
     }
     
-    prepareBattle();
-    
     _battleLayer = BattleLayer::create(_stage);
     this->addChild(_battleLayer);
     

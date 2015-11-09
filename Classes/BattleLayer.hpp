@@ -28,6 +28,7 @@ private:
     const std::string _stage;
     
     BattleUILayer *_battleUILayer;
+    cocos2d::Sprite *_battleMap;
 };
 
 #endif /* BattleLayer_hpp */

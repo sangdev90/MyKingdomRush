@@ -27,17 +27,22 @@ BattleDisplayBoardSprite *BattleDisplayBoardSprite::createWithInformationAndSpri
 void BattleDisplayBoardSprite::onEnter(){
     Sprite::onEnter();
     
-    _labelOfHP = Label::createWithSystemFont(int2string(_numberOfHP), "Arial", 20);
+//    std::string hp = int2string(_numberOfHP);
+//    CCLOG("%s", hp.c_str());
+    
+    _labelOfHP = Label::createWithSystemFont(int2string(_numberOfHP), "Arial", 25);
     _labelOfHP->setPosition(64, 64);
     this->addChild(_labelOfHP, 1);
     
-    _labelOfCoin = Label::createWithSystemFont(int2string(_numberOfCoin), "Arial", 20);
+    _labelOfCoin = Label::createWithSystemFont(int2string(_numberOfCoin), "Arial", 25);
     _labelOfCoin->setPosition(185, 64);
     this->addChild(_labelOfCoin, 1);
     
-    std::string waveString = std::string("WAVE") + int2string(_numberOfWave) + "/" + int2string(_numberOfTotalWave);
-    _labelOfWave = Label::createWithSystemFont(waveString, "Arial", 20);
-    _labelOfWave->setPosition(24, 160);
+    std::string waveString = std::string("WAVE ") + int2string(_numberOfWave) + " / " + int2string(_numberOfTotalWave);
+    CCLOG("%s", waveString.c_str());
+    _labelOfWave = Label::createWithSystemFont(waveString, "Arial", 23);
+    _labelOfWave->setPosition(140, 24);
+    this->addChild(_labelOfWave, 1);
     
 }
 

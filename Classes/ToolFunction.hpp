@@ -10,6 +10,7 @@
 #define ToolFunction_hpp
 
 #include <stdio.h>
+#include <iostream>
 #include "cocos2d.h"
 #include "ResourcesPath.h"
 
@@ -69,9 +70,23 @@ inline void prepareCredits(){
 }
 
 inline std::string int2string(int number){
-    char *str;
-    sprintf(str, "%d", number);
-    return std::string(str);
+    
+    int numberToConver = number;
+    int size = 0;
+    do {
+        ++size;
+    }while (numberToConver /= 10);
+    
+    size *= 2;
+    
+    char str[size];
+    int len = snprintf(str, sizeof(str), "%d", number);
+    if (len > sizeof(str) - 1){
+        std::cout << __func__ << "缓冲区溢出！！！！" << std::endl;
+    }
+    
+    std::string string(str);
+    return string;
 }
 
 inline int string2int(const std::string &string){

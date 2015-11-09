@@ -1,8 +1,11 @@
 #include "AppDelegate.h"
 #include "MainMenu.hpp"
 
+#include "ToolFunction.hpp"
 #include "ResourcesPath.h"
 #include "WorldMapToBattleLayer.hpp"
+
+#include "BattleScene.hpp"
 
 USING_NS_CC;
 
@@ -44,6 +47,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("res");
 
     // Test
+    
+    prepareBattle();
+    BattleScene *testBattleScene = BattleScene::create("stage_1");
+    director->runWithScene(testBattleScene);
+    return true;
+    
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(WORLDMAP_UI_PLIST);
     Scene *testScene = Scene::create();
     WorldMapToBattleLayer *testLayer = WorldMapToBattleLayer::create("stage_1");

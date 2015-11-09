@@ -22,7 +22,7 @@ BattleLayer *BattleLayer::create(const std::string &stage){
 }
 
 bool BattleLayer::init(){
-    if (Layer::init()){
+    if (!Layer::init()){
         return false;
     }
     
