@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <math.h>
 #include "cocos2d.h"
 #include "ResourcesPath.h"
 
@@ -69,6 +70,13 @@ inline void prepareCredits(){
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(CREDITS_UI_PLIST);
 }
 
+/**
+ *  一个比较安全的 int 转 std::string 函数
+ *
+ *  @param number 要转换的 int
+ *
+ *  @return 返回一个转换之后的 std::string
+ */
 inline std::string int2string(int number){
     
     int numberToConver = number;
@@ -89,22 +97,47 @@ inline std::string int2string(int number){
     return string;
 }
 
+/**
+ *  std::string 转 int
+ *
+ *  @param string 要转换的 std::string
+ *
+ *  @return 转换之后的 int
+ */
 inline int string2int(const std::string &string){
     int number;
     sscanf(string.c_str(), "%d", &number);
     return number;
 }
 
+/**
+ *  待修改
+ *
+ *  @param number <#number description#>
+ *
+ *  @return <#return value description#>
+ */
 inline std::string double2string(double number){
     char *str;
     sprintf(str, "%f", number);
     return std::string(str);
 }
 
+/**
+ *  std::string 转 double
+ *
+ *  @param string 要转换的 std::string
+ *
+ *  @return 转换之后的 double
+ */
 inline double string2double(const std::string &string){
     double number;
     sscanf(string.c_str(), "%lf", &number);
     return number;
+}
+
+inline float distanceBetweenTwoVec2(const cocos2d::Vec2 &leftPoint, const cocos2d::Vec2 &rightPoint){
+    return static_cast<float>(sqrt( (leftPoint.x - rightPoint.x)*(leftPoint.x - rightPoint.x) + (leftPoint.y - rightPoint.y)*(leftPoint.y - rightPoint.y) ));
 }
 
 
