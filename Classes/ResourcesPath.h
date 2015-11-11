@@ -56,4 +56,6 @@ const std::string BATTLE_TMXMAP_STAGE_13 = "res/image/battle/battlemap/stage13/b
 const std::string BATTLE_TMXMAP_STAGE_14 = "res/image/battle/battlemap/stage14/battlemap_stage_14.tmx";
 const std::string BATTLE_TMXMAP_STAGE_15 = "res/image/battle/battlemap/stage15/battlemap_stage_15.tmx";
 
+const std::string DESERTTHUG_FRAMES = "res/images/battle/battlemap/stage1/spritesheet/enemy_animation_desertthug.plist";
+
 #endif /* ResourcesPath_h */

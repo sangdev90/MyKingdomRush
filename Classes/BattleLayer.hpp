@@ -32,6 +32,7 @@ private:
     BattleUILayer *_battleUILayer;
     cocos2d::Sprite *_battleMap;
     cocos2d::TMXTiledMap *_battleTMXMap;
+    cocos2d::TMXLayer *_roadLayer1;
     
     cocos2d::Size _mapSize;
     cocos2d::Size _visibleSize;

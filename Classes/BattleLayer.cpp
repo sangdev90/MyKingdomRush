@@ -39,6 +39,11 @@ bool BattleLayer::init(){
     this->_dealMapPositoinData();
     this->_dealMapScaleData();
     
+    CCLOG("Tile Map Size (%f, %f)", _battleTMXMap->getMapSize().width, _battleTMXMap->getMapSize().height);
+    CCLOG("Tile Map (%f, %f)", _battleTMXMap->getTileSize().width, _battleTMXMap->getTileSize().height);
+    
+    
+    
     return true;
 }
 
@@ -47,6 +52,21 @@ void BattleLayer::onEnter(){
     
     _touchListener = EventListenerTouchAllAtOnce::create();
     _touchListener->onTouchesBegan = [&](const std::vector<Touch *> &touches, Event *event){
+        
+        if (touches.size() == 1){
+            Vec2 touchPosition = _battleMap->convertToNodeSpace(touches[0]->getLocation());
+            CCLOG("Touch Position (%f, %f)", touchPosition.x, touchPosition.y);
+            int tileX = touchPosition.x / _battleTMXMap->getTileSize().width;
+            int tileY = ((_battleTMXMap->getMapSize().height * _battleTMXMap->getTileSize().height) - touchPosition.y) / _battleTMXMap->getTileSize().height;
+            CCLOG("Tile (%d, %d)", tileX, tileY);
+            int tileID = _roadLayer1->getTileGIDAt(Vec2(tileX, tileY));
+            CCLOG("TileID %d", tileID);
+            if (tileID){
+                Value prop = _battleTMXMap->getPropertiesForGID(tileID);
+                ValueMap propValueMap = prop.asValueMap();
+                CCLOG("Is Road %s", propValueMap["road"].asString().c_str());
+            }
+        }
         
     };
     _touchListener->onTouchesMoved = [&](const std::vector<Touch *> &touches, Event *event){
@@ -86,10 +106,22 @@ void BattleLayer::onEnter(){
                 }
                 _battleMap->setScale(scale);
                 this->_dealMapPositoinData();
-                Vec2 battleMapPosition = _battleMap->getPosition();
-                Size battleMapSize = Size(_battleMap->getContentSize().width * _currentMapScale, _battleMap->getContentSize().height * _currentMapScale);
-                CCLOG("Current Size (%f, %f)", battleMapSize.width, battleMapSize.height);
-                // MARK: 处理缩放时的黑边，方案：出现黑边就移动地图
+                Vec2 currentbBattleMapPosition = _battleMap->getPosition();
+                Size currentBattleMapSize = Size(_battleMap->getContentSize().width * _currentMapScale, _battleMap->getContentSize().height * _currentMapScale);
+                if (currentbBattleMapPosition.x - currentBattleMapSize.width / 2 > 0){
+                    _battleMap->setPosition(currentBattleMapSize.width / 2, currentbBattleMapPosition.y);
+                }
+                if (currentbBattleMapPosition.x + currentBattleMapSize.width / 2 < _visibleSize.width){
+                    _battleMap->setPosition(_visibleSize.width - currentBattleMapSize.width / 2, currentbBattleMapPosition.y);
+                }
+                
+                currentbBattleMapPosition = _battleMap->getPosition();
+                if (currentbBattleMapPosition.y - currentBattleMapSize.height / 2 > 0){
+                    _battleMap->setPosition(currentbBattleMapPosition.x, currentBattleMapSize.height / 2);
+                }
+                if (currentbBattleMapPosition.y + currentBattleMapSize.height / 2 < _visibleSize.height){
+                    _battleMap->setPosition(currentbBattleMapPosition.x, _visibleSize.height - currentBattleMapSize.height / 2);
+                }
 
             }
         }
@@ -113,10 +145,18 @@ void BattleLayer::_loadBattle(){
     
     _battleMap = Sprite::create(BATTLE_MAP_STAGE_1);
     _battleTMXMap = TMXTiledMap::create(BATTLE_TMXMAP_STAGE_1);
+    _roadLayer1 = _battleTMXMap->getLayer("road_1");
+    if (_roadLayer1 == nullptr){
+        CCLOG("Can't get RoadLayer");
+    }
     _mapSize = _battleMap->getContentSize();
     _battleMap->setScale(0.8);
+    _currentMapScale = 0.8;
     _battleMap->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
     this->addChild(_battleMap, 1);
+    
+    _battleTMXMap->setPosition(0, 0);
+    _battleMap->addChild(_battleTMXMap);
     
 }
 
