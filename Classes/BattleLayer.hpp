@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "BattleData.hpp"
 
 class BattleUILayer;
 
@@ -31,8 +32,7 @@ private:
     
     BattleUILayer *_battleUILayer;
     cocos2d::Sprite *_battleMap;
-    cocos2d::TMXTiledMap *_battleTMXMap;
-    cocos2d::TMXLayer *_roadLayer1;
+    BattleData _battleData;
     
     cocos2d::Size _mapSize;
     cocos2d::Size _visibleSize;
@@ -46,6 +46,8 @@ private:
     void _loadBattle();
     void _dealMapPositoinData();
     void _dealMapScaleData();
+    void _loadBattleData();
+    void _getMapRoad();
 };
 
 #endif /* BattleLayer_hpp */

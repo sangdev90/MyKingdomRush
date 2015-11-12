@@ -14,6 +14,7 @@
 #include <math.h>
 #include "cocos2d.h"
 #include "ResourcesPath.h"
+#include "BattleData.hpp"
 
 inline cocos2d::Menu *createMenuWithSpriteByThreeTextureAndCallback(const std::string &normalTexture, const std::string &selectedTexture, const std::string &disabledTexture, const cocos2d::ccMenuCallback &callback){
     
@@ -138,6 +139,20 @@ inline double string2double(const std::string &string){
 
 inline float distanceBetweenTwoVec2(const cocos2d::Vec2 &leftPoint, const cocos2d::Vec2 &rightPoint){
     return static_cast<float>(sqrt( (leftPoint.x - rightPoint.x)*(leftPoint.x - rightPoint.x) + (leftPoint.y - rightPoint.y)*(leftPoint.y - rightPoint.y) ));
+}
+
+/**
+ *  打印 BattleData
+ *
+ *  @param battleData BattleData
+ */
+inline void printBattleData(const BattleData &battleData){
+    CCLOG("游戏运行时的战场数据：");
+    CCLOG("MonsterAppearPoint : (%f, %f)", battleData.monsterAppearPoint.x, battleData.monsterAppearPoint.y);
+    CCLOG("DefencePoint: (%f, %f)", battleData.defencePoint.x, battleData.defencePoint.y);
+    CCLOG("TowerBuildPoint:");
+    CCLOG("Coin: %d", battleData.coin);
+    CCLOG("HP: %d", battleData.hp);
 }
 
 

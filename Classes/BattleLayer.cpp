@@ -13,6 +13,10 @@
 #include "ResourcesPath.h"
 #include "ToolFunction.cpp"
 
+#include "json/rapidjson.h"
+#include "json/stringbuffer.h"
+#include "json/document.h"
+
 USING_NS_CC;
 
 BattleLayer *BattleLayer::create(const std::string &stage){
@@ -38,11 +42,7 @@ bool BattleLayer::init(){
     this->_loadBattle();
     this->_dealMapPositoinData();
     this->_dealMapScaleData();
-    
-    CCLOG("Tile Map Size (%f, %f)", _battleTMXMap->getMapSize().width, _battleTMXMap->getMapSize().height);
-    CCLOG("Tile Map (%f, %f)", _battleTMXMap->getTileSize().width, _battleTMXMap->getTileSize().height);
-    
-    
+    this->_loadBattleData();
     
     return true;
 }
@@ -52,21 +52,6 @@ void BattleLayer::onEnter(){
     
     _touchListener = EventListenerTouchAllAtOnce::create();
     _touchListener->onTouchesBegan = [&](const std::vector<Touch *> &touches, Event *event){
-        
-        if (touches.size() == 1){
-            Vec2 touchPosition = _battleMap->convertToNodeSpace(touches[0]->getLocation());
-            CCLOG("Touch Position (%f, %f)", touchPosition.x, touchPosition.y);
-            int tileX = touchPosition.x / _battleTMXMap->getTileSize().width;
-            int tileY = ((_battleTMXMap->getMapSize().height * _battleTMXMap->getTileSize().height) - touchPosition.y) / _battleTMXMap->getTileSize().height;
-            CCLOG("Tile (%d, %d)", tileX, tileY);
-            int tileID = _roadLayer1->getTileGIDAt(Vec2(tileX, tileY));
-            CCLOG("TileID %d", tileID);
-            if (tileID){
-                Value prop = _battleTMXMap->getPropertiesForGID(tileID);
-                ValueMap propValueMap = prop.asValueMap();
-                CCLOG("Is Road %s", propValueMap["road"].asString().c_str());
-            }
-        }
         
     };
     _touchListener->onTouchesMoved = [&](const std::vector<Touch *> &touches, Event *event){
@@ -144,19 +129,11 @@ void BattleLayer::_loadBattle(){
     _visibleSize = Director::getInstance()->getVisibleSize();
     
     _battleMap = Sprite::create(BATTLE_MAP_STAGE_1);
-    _battleTMXMap = TMXTiledMap::create(BATTLE_TMXMAP_STAGE_1);
-    _roadLayer1 = _battleTMXMap->getLayer("road_1");
-    if (_roadLayer1 == nullptr){
-        CCLOG("Can't get RoadLayer");
-    }
     _mapSize = _battleMap->getContentSize();
     _battleMap->setScale(0.8);
     _currentMapScale = 0.8;
     _battleMap->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
     this->addChild(_battleMap, 1);
-    
-    _battleTMXMap->setPosition(0, 0);
-    _battleMap->addChild(_battleTMXMap);
     
 }
 
@@ -179,6 +156,32 @@ void BattleLayer::_dealMapScaleData(){
     CCLOG("Min Scale %f", _mapMinScale);
 }
 
+void BattleLayer::_loadBattleData(){
+    
+    std::string jsonPath = std::string("res/data/battle/battle_data_") + _stage + ".json";
+    CCLOG("Battle Data JSON Path : %s", jsonPath.c_str());
+    std::string fullJsonPath = FileUtils::getInstance()->fullPathForFilename(jsonPath);
+    CCLOG("Battle Data JSON Full Path : %s", fullJsonPath.c_str());
+    std::string jsonStringData = FileUtils::getInstance()->getStringFromFile(fullJsonPath);
+    CCLOG("Battle Data JSON String : %s", jsonStringData.c_str());
+    
+    rapidjson::Document battleJsonDocument;
+    battleJsonDocument.Parse<0>(jsonStringData.c_str());
+    if (battleJsonDocument.HasParseError()){
+        CCLOG("Parse JSON : %s \n Error : %u", jsonPath.c_str(), battleJsonDocument.GetParseError());
+    }else {
+        if (battleJsonDocument.IsObject()){
+            _battleData.monsterAppearPoint.x = battleJsonDocument["monsterAppearPoint"]["x"].GetDouble();
+            _battleData.monsterAppearPoint.y = battleJsonDocument["monsterAppearPoint"]["y"].GetDouble();
+            
+            _battleData.coin = battleJsonDocument["coin"].GetInt();
+            _battleData.hp = battleJsonDocument["hp"].GetInt();
+        }
+    }
+    
+    printBattleData(_battleData);
+    
+}
 
 
 
