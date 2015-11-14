@@ -18,6 +18,7 @@ const std::string WORLDMAP_UI_PLIST = "res/image/worldmap/worldmap_ui_spriteshee
 const std::string BATTLE_UI_PLIST   = "res/image/battle/battleui/battle_ui_spritesheet.plist";
 
 const std::string CREDITS_DATA_JSON = "res/data/credits.json";
+const std::string MONSTER_DATA_JSON = "res/data/monster_data.json";
 
 const std::string ARIAL_FRONT_PATH = "res/front/arial.fnt";
 
@@ -40,22 +41,6 @@ const std::string BATTLE_MAP_STAGE_13 = "res/image/battle/battlemap/stage13/batt
 const std::string BATTLE_MAP_STAGE_14 = "res/image/battle/battlemap/stage14/battle_map_stage_14.png";
 const std::string BATTLE_MAP_STAGE_15 = "res/image/battle/battlemap/stage15/battle_map_stage_15.png";
 
-const std::string BATTLE_TMXMAP_STAGE_1 = "res/image/battle/battlemap/stage1/battlemap_stage_1.tmx";
-const std::string BATTLE_TMXMAP_STAGE_2 = "res/image/battle/battlemap/stage2/battlemap_stage_2.tmx";
-const std::string BATTLE_TMXMAP_STAGE_3 = "res/image/battle/battlemap/stage3/battlemap_stage_3.tmx";
-const std::string BATTLE_TMXMAP_STAGE_4 = "res/image/battle/battlemap/stage4/battlemap_stage_4.tmx";
-const std::string BATTLE_TMXMAP_STAGE_5 = "res/image/battle/battlemap/stage5/battlemap_stage_5.tmx";
-const std::string BATTLE_TMXMAP_STAGE_6 = "res/image/battle/battlemap/stage6/battlemap_stage_6.tmx";
-const std::string BATTLE_TMXMAP_STAGE_7 = "res/image/battle/battlemap/stage7/battlemap_stage_7.tmx";
-const std::string BATTLE_TMXMAP_STAGE_8 = "res/image/battle/battlemap/stage8/battlemap_stage_8.tmx";
-const std::string BATTLE_TMXMAP_STAGE_9 = "res/image/battle/battlemap/stage9/battlemap_stage_9.tmx";
-const std::string BATTLE_TMXMAP_STAGE_10 = "res/image/battle/battlemap/stage10/battlemap_stage_10.tmx";
-const std::string BATTLE_TMXMAP_STAGE_11 = "res/image/battle/battlemap/stage11/battlemap_stage_11.tmx";
-const std::string BATTLE_TMXMAP_STAGE_12 = "res/image/battle/battlemap/stage12/battlemap_stage_12.tmx";
-const std::string BATTLE_TMXMAP_STAGE_13 = "res/image/battle/battlemap/stage13/battlemap_stage_13.tmx";
-const std::string BATTLE_TMXMAP_STAGE_14 = "res/image/battle/battlemap/stage14/battlemap_stage_14.tmx";
-const std::string BATTLE_TMXMAP_STAGE_15 = "res/image/battle/battlemap/stage15/battlemap_stage_15.tmx";
 
-const std::string DESERTTHUG_FRAMES = "res/images/battle/battlemap/stage1/spritesheet/enemy_animation_desertthug.plist";
 
 #endif /* ResourcesPath_h */

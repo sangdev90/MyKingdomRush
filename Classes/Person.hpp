@@ -11,25 +11,40 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
-#include "ResourcesPath.h"
-#include "ToolFunction.cpp"
-#include "Behavior.hpp"
 
 class Person : public cocos2d::Sprite{
 public:
     
-    void setName(const std::string &name);
-    const std::string &getName();
-    void setSide(const std::string &side);
-    const std::string &getSide();
+    Person(const std::string &name):
+    _name(name) {};
     
-private:
+    virtual void run() = 0;
+    virtual void attack(Person *attackTarget) = 0;
+    virtual void die() = 0;
     
-    std::string _name;  //for example : desertthug
-    std::string _side;  //for example : enemy || soldier
+protected:
+    
+    cocos2d::Sprite *_actionSprite;
+    
+    std::string _name;  //for example : desertThug
+    std::string _side;  //for example : monster || soldier
     std::string _info;  //
     
-    int hp;
+    int _hp;
+    int _speed;
+    int _attackRange;
+    
+    int _numberOfAttackAnimationFrame;
+    cocos2d::Vector<cocos2d::AnimationFrame *> _attackAniamtionFrameArray;
+    int _numberOfDieAnimationFrame;
+    cocos2d::Vector<cocos2d::AnimationFrame *> _dieAnimationFrameArray;
+    int _numberOfForwardAnimationFrame;
+    cocos2d::Vector<cocos2d::AnimationFrame *> _runForwardAnimationFrameArray;
+    int _numberOfBackwardAnimationFrame;
+    cocos2d::Vector<cocos2d::AnimationFrame *> _runBackwardAnimationFrameArray;
+    int _numberOfTowardAnimationFrame;
+    cocos2d::Vector<cocos2d::AnimationFrame *> _runTowardAnimationFrameArray;
+    
     
 };
 

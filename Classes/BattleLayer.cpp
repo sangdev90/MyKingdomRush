@@ -9,6 +9,8 @@
 #include <vector>
 #include "BattleLayer.hpp"
 #include "BattleUILayer.hpp"
+#include "Monster.hpp"
+#include "GameData.hpp"
 
 #include "ResourcesPath.h"
 #include "ToolFunction.cpp"
@@ -44,6 +46,12 @@ bool BattleLayer::init(){
     this->_dealMapScaleData();
     this->_loadBattleData();
     
+    Monster *testMonster = Monster::createWithName("desterThug");
+    testMonster->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
+    _battleMap->addChild(testMonster);
+    GameData::getInstance()->loadMonsterData();
+    
+    this->_drawSomthingOnMap();
     return true;
 }
 
@@ -52,6 +60,12 @@ void BattleLayer::onEnter(){
     
     _touchListener = EventListenerTouchAllAtOnce::create();
     _touchListener->onTouchesBegan = [&](const std::vector<Touch *> &touches, Event *event){
+        
+//        if (touches.size() == 1){
+//            Touch *touch = touches[0];
+//            Vec2 roadPoint = _battleMap->convertToNodeSpace(touch->getLocation());
+//            CCLOG("Road Point : (%f, %f)", roadPoint.x, roadPoint.y);
+//        }
         
     };
     _touchListener->onTouchesMoved = [&](const std::vector<Touch *> &touches, Event *event){
@@ -181,6 +195,18 @@ void BattleLayer::_loadBattleData(){
     
     printBattleData(_battleData);
     
+}
+
+void BattleLayer::_drawSomthingOnMap(){
+    _testDrawNode = DrawNode::create();
+    _battleMap->addChild(_testDrawNode, 10000);
+    PointArray *roadPointArray = PointArray::create(_testRoadPointVector.size());
+    for (std::vector<Vec2>::iterator iter = _testRoadPointVector.begin(); iter != _testRoadPointVector.end(); ++iter){
+        _testDrawNode->drawPoint(*iter, 10, Color4F::BLACK);
+        roadPointArray->addControlPoint(*iter);
+    }
+    _testDrawNode->drawCardinalSpline(roadPointArray, 0.1, 100, Color4F::BLACK);
+//    _testDrawNode->drawCatmullRom(roadPointArray, 100, Color4F::BLACK);
 }
 
 

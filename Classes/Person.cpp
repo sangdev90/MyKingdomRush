@@ -7,3 +7,7 @@
 //
 
 #include "Person.hpp"
+#include "ResourcesPath.h"
+#include "ToolFunction.cpp"
+#include "Behavior.hpp"
+

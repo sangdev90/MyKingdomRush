@@ -14,6 +14,10 @@
 
 class BattleData {
 public:
+    
+    int id;
+    std::string battleName;
+    
     cocos2d::Vec2 monsterAppearPoint;
     cocos2d::Vec2 defencePoint;
     std::vector<cocos2d::Vec2> towerBuildPoint;

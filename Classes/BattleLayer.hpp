@@ -48,6 +48,19 @@ private:
     void _dealMapScaleData();
     void _loadBattleData();
     void _getMapRoad();
+    
+    //Draw Test
+    void _drawSomthingOnMap();
+    cocos2d::DrawNode *_testDrawNode;
+    std::vector<cocos2d::Vec2> _testRoadPointVector =
+    {   cocos2d::Vec2(2015, 829),
+        cocos2d::Vec2(1488, 853),
+        cocos2d::Vec2(1336, 1051),
+        cocos2d::Vec2(993, 1133),
+        cocos2d::Vec2(714, 1040),
+        cocos2d::Vec2(592, 859),
+        cocos2d::Vec2(132, 862)
+    };
 };
 
 #endif /* BattleLayer_hpp */
