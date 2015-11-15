@@ -15,6 +15,7 @@
 #include "cocos2d.h"
 #include "ResourcesPath.h"
 #include "BattleData.hpp"
+#include "MonsterData.hpp"
 
 inline cocos2d::Menu *createMenuWithSpriteByThreeTextureAndCallback(const std::string &normalTexture, const std::string &selectedTexture, const std::string &disabledTexture, const cocos2d::ccMenuCallback &callback){
     
@@ -147,13 +148,70 @@ inline float distanceBetweenTwoVec2(const cocos2d::Vec2 &leftPoint, const cocos2
  *  @param battleData BattleData
  */
 inline void printBattleData(const BattleData &battleData){
-    CCLOG("游戏运行时的战场数据：");
+    CCLOG("游戏运行时的战场数据：---------------------------------------------------------------------");
     CCLOG("MonsterAppearPoint : (%f, %f)", battleData.monsterAppearPoint.x, battleData.monsterAppearPoint.y);
     CCLOG("DefencePoint: (%f, %f)", battleData.defencePoint.x, battleData.defencePoint.y);
     CCLOG("TowerBuildPoint:");
     CCLOG("Coin: %d", battleData.coin);
     CCLOG("HP: %d", battleData.hp);
+    CCLOG("---------------------------------------------------------------------------------------");
 }
 
+/**
+ *  打印 MonsterData
+ *
+ *  @param monsterData MonsterData
+ */
+inline void printMonsterData(const MonsterData &monsterData){
+    CCLOG("Monster 数据：--------------------------------------------------------------------------");
+    CCLOG("name: %s", monsterData.name.c_str());
+    CCLOG("id: %d", monsterData.id);
+    CCLOG("numberOfAttackFrame: %d", monsterData.numberOfAttackFrame);
+    CCLOG("numberOfDieFrame: %d", monsterData.numberOfDieFrame);
+    CCLOG("numberOfForwardFrame: %d", monsterData.numberOfForwardFrame);
+    CCLOG("numberOfTowardFrame: %d", monsterData.numberOfTowardFrame);
+    CCLOG("numberOfBcakwardFrame: %d", monsterData.numberOfBcakwardFrame);
+    CCLOG("hp: %d", monsterData.hp);
+    CCLOG("speed: %d", monsterData.speed);
+    CCLOG("---------------------------------------------------------------------------------------");
+}
+
+/**
+ *  获取 Monster 动画帧文件名
+ *
+ *  @param monsterName    Monster 名字
+ *  @param animationName  动画种类名字
+ *  @param animationOrder 第几帧
+ *
+ *  @return 动画帧文件名
+ */
+inline std::string getMonsterAnimationFrameName(const std::string &monsterName, const std::string &animationName, int animationOrder){
+    
+    std::string animationOrderString = "0";
+    if (animationOrder < 10){
+        animationOrderString += int2string(animationOrder);
+    }else {
+        animationOrderString = int2string(animationOrder);
+    }
+    
+    std::string monsterAnimationFrameName = std::string("monster_animation_") + monsterName + "_" + animationName + "_" + animationOrderString + ".png";
+    CCLOG("%s, %s", __func__, monsterAnimationFrameName.c_str());
+    return monsterAnimationFrameName;
+    
+}
+
+/**
+ *  获取 Monster 精灵帧 plist 文件路径
+ *
+ *  @param monsterName Monster 名字
+ *
+ *  @return plist 文件路径
+ */
+inline std::string getMonsterSpriteSheetPlistPath(const std::string &monsterName){
+    //TODO: 这里可以加入一个在数据里查找怪物名字的处理，如果没有这个名字的怪物，那就不要再返回那个不存在的文件的路径了。等所有怪物的名字都有了再做这里吧！
+    std::string spriteSheetPath = std::string("res/image/battle/spritesheet/monster_animation_") + monsterName + ".plist";
+    CCLOG("%s, %s", __func__, spriteSheetPath.c_str());
+    return spriteSheetPath;
+}
 
 #endif /* ToolFunction_hpp */

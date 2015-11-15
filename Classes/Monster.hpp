@@ -14,6 +14,8 @@
 #include "Person.hpp"
 #include "MonsterData.hpp"
 
+class BattleLayer;
+
 class Monster : public Person{
 public:
     
@@ -30,12 +32,15 @@ public:
     virtual void attack(Person *attackTarget) override;
     virtual void die() override;
     
-    void initMonsterData();
-    void initAnimationData();
     
-private:
-    MonsterData myMonsterData;
     
+protected:
+    MonsterData _myMonsterData;
+    BattleLayer *battleLayerPointer;
+    
+    void _initMonsterData();
+    void _initAnimationData();
+    void _initBattleMapData();
 };
 
 #endif /* Monster_hpp */

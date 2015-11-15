@@ -35,15 +35,15 @@ protected:
     int _attackRange;
     
     int _numberOfAttackAnimationFrame;
-    cocos2d::Vector<cocos2d::AnimationFrame *> _attackAniamtionFrameArray;
+    cocos2d::Vector<cocos2d::SpriteFrame *> _attackAniamtionFrameArray;
     int _numberOfDieAnimationFrame;
-    cocos2d::Vector<cocos2d::AnimationFrame *> _dieAnimationFrameArray;
+    cocos2d::Vector<cocos2d::SpriteFrame*> _dieAnimationFrameArray;
     int _numberOfForwardAnimationFrame;
-    cocos2d::Vector<cocos2d::AnimationFrame *> _runForwardAnimationFrameArray;
+    cocos2d::Vector<cocos2d::SpriteFrame *> _runForwardAnimationFrameArray;
     int _numberOfBackwardAnimationFrame;
-    cocos2d::Vector<cocos2d::AnimationFrame *> _runBackwardAnimationFrameArray;
+    cocos2d::Vector<cocos2d::SpriteFrame *> _runBackwardAnimationFrameArray;
     int _numberOfTowardAnimationFrame;
-    cocos2d::Vector<cocos2d::AnimationFrame *> _runTowardAnimationFrameArray;
+    cocos2d::Vector<cocos2d::SpriteFrame *> _runTowardAnimationFrameArray;
     
     
 };

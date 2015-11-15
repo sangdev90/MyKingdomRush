@@ -21,7 +21,7 @@ public:
     int numberOfDieFrame;
     int numberOfForwardFrame;
     int numberOfTowardFrame;
-    int numberOfBcakFrame;
+    int numberOfBcakwardFrame;
     
     int hp;
     int speed;

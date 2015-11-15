@@ -1,0 +1,24 @@
+{
+	"desertThug":{
+		"name":"desertThug",
+		"id":1,
+		"numberOfAttackFrame":5,
+		"numberOfDieFrame":6,
+		"numberOfForwardFrame":12,
+		"numberOfBackwardFrame":12,
+		"numberOfTowardFrame":12,
+		"HP":100,
+		"Speed":10
+	},
+	"desertRaider":{
+		"name":"desertRaider",
+		"id":2,
+		"numberOfAttackFrame":4,
+		"numberOfDieFrame":6,
+		"numberOfForwardFrame":12,
+		"numberOfBackwardFrame":12,
+		"numberOfTowardFrame":12,
+		"HP":100,
+		"Speed":10
+	}
+}

@@ -46,10 +46,13 @@ bool BattleLayer::init(){
     this->_dealMapScaleData();
     this->_loadBattleData();
     
-    Monster *testMonster = Monster::createWithName("desterThug");
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
+    GameData::getInstance()->loadMonsterData();
+    Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug);
     testMonster->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
     _battleMap->addChild(testMonster);
-    GameData::getInstance()->loadMonsterData();
+    
     
     this->_drawSomthingOnMap();
     return true;

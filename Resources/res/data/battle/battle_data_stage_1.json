@@ -1,0 +1,16 @@
+{
+	"monsterAppearPoint":{
+		"x":0,
+		"y":0
+		},
+
+	"defencePoint":{
+		"x":0,
+		"y":0
+		},
+	"towerBuildPoint":[],
+	"roadPoint":[],
+	"monsterWaveData":[],
+	"coin":250,
+	"hp":20
+}
