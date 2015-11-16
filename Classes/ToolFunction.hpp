@@ -195,7 +195,7 @@ inline std::string getMonsterAnimationFrameName(const std::string &monsterName, 
     }
     
     std::string monsterAnimationFrameName = std::string("monster_animation_") + monsterName + "_" + animationName + "_" + animationOrderString + ".png";
-    CCLOG("%s, %s", __func__, monsterAnimationFrameName.c_str());
+//    CCLOG("%s, %s", __func__, monsterAnimationFrameName.c_str());
     return monsterAnimationFrameName;
     
 }
@@ -210,8 +210,38 @@ inline std::string getMonsterAnimationFrameName(const std::string &monsterName, 
 inline std::string getMonsterSpriteSheetPlistPath(const std::string &monsterName){
     //TODO: 这里可以加入一个在数据里查找怪物名字的处理，如果没有这个名字的怪物，那就不要再返回那个不存在的文件的路径了。等所有怪物的名字都有了再做这里吧！
     std::string spriteSheetPath = std::string("res/image/battle/spritesheet/monster_animation_") + monsterName + ".plist";
-    CCLOG("%s, %s", __func__, spriteSheetPath.c_str());
+//    CCLOG("%s, %s", __func__, spriteSheetPath.c_str());
     return spriteSheetPath;
+}
+
+/**
+ *  通过战场名获得 AStar plist 文件路径
+ *
+ *  @param stage 战场名
+ *
+ *  @return plist 文件路径
+ */
+inline std::string getBattleMapAstarDataPlistFilePathWithStageName(const std::string &stage){
+    std::string battleMapPlistFilePath = "res/data/battle/";
+    battleMapPlistFilePath += stage;
+    battleMapPlistFilePath += "_astar.plist";
+    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
+    return battleMapPlistFilePath;
+}
+
+/**
+ *  通过战场名获得 Path plist 文件路径
+ *
+ *  @param stage 战场名
+ *
+ *  @return plist 文件路径
+ */
+inline std::string getBattleMapPathDataPlistFilePathWithStageName(const std::string &stage){
+    std::string battleMapPlistFilePath = "res/data/battle";
+    battleMapPlistFilePath += stage;
+    battleMapPlistFilePath += "_paths.plist";
+    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
+    return battleMapPlistFilePath;
 }
 
 #endif /* ToolFunction_hpp */

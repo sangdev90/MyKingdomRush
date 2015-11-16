@@ -198,6 +198,19 @@ void BattleLayer::_loadBattleData(){
     
     printBattleData(_battleData);
     
+    
+    //astar and path
+    __Dictionary *astarDictionary = __Dictionary::createWithContentsOfFile(getBattleMapAstarDataPlistFilePathWithStageName(_stage).c_str());
+    
+    CCLOG("AStar Vale Map");
+    __Array *gridArray = static_cast<__Array *>(astarDictionary->objectForKey("grid"));
+    CCLOG("%zd", gridArray->count());
+    for (int index = 0; index < gridArray->count(); ++index){
+        __Dictionary *item = static_cast<__Dictionary *>(gridArray->getObjectAtIndex(index));
+        CCLOG("%d", item->count());
+    }
+    
+    
 }
 
 void BattleLayer::_drawSomthingOnMap(){
@@ -210,6 +223,7 @@ void BattleLayer::_drawSomthingOnMap(){
     }
     _testDrawNode->drawCardinalSpline(roadPointArray, 0.1, 100, Color4F::BLACK);
 //    _testDrawNode->drawCatmullRom(roadPointArray, 100, Color4F::BLACK);
+    
 }
 
 
