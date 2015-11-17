@@ -12,10 +12,12 @@
 #include <stdio.h>
 #include <iostream>
 #include <math.h>
+#include <vector>
 #include "cocos2d.h"
 #include "ResourcesPath.h"
 #include "BattleData.hpp"
 #include "MonsterData.hpp"
+#include "BattleAStarGridData.hpp"
 
 inline cocos2d::Menu *createMenuWithSpriteByThreeTextureAndCallback(const std::string &normalTexture, const std::string &selectedTexture, const std::string &disabledTexture, const cocos2d::ccMenuCallback &callback){
     
@@ -224,8 +226,8 @@ inline std::string getMonsterSpriteSheetPlistPath(const std::string &monsterName
 inline std::string getBattleMapAstarDataPlistFilePathWithStageName(const std::string &stage){
     std::string battleMapPlistFilePath = "res/data/battle/";
     battleMapPlistFilePath += stage;
-    battleMapPlistFilePath += "_astar.plist";
-    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
+    battleMapPlistFilePath += "_astar";
+//    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
     return battleMapPlistFilePath;
 }
 
@@ -237,11 +239,29 @@ inline std::string getBattleMapAstarDataPlistFilePathWithStageName(const std::st
  *  @return plist 文件路径
  */
 inline std::string getBattleMapPathDataPlistFilePathWithStageName(const std::string &stage){
-    std::string battleMapPlistFilePath = "res/data/battle";
+    std::string battleMapPlistFilePath = "res/data/battle/";
     battleMapPlistFilePath += stage;
-    battleMapPlistFilePath += "_paths.plist";
-    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
+    battleMapPlistFilePath += "_paths";
+//    CCLOG("%s : %s", __func__, battleMapPlistFilePath.c_str());
     return battleMapPlistFilePath;
 }
+
+/**
+ *  解析战场 AStar plist 文件（利用 OC）
+ *
+ *  @param plistPath plist 文件路径
+ *
+ *  @return 储存着 AStar 数据的数据结构
+ */
+std::vector<BattleAStarGridData> parseBattleAStarDataWithPlistFile(const std::string &plistPath);
+
+/**
+ *  解析战场 Path plist 文件（利用 OC）
+ *
+ *  @param plistPath plist 文件路径
+ *
+ *  @return 储存着路径数据的数据结构
+ */
+std::vector<std::vector<std::vector<cocos2d::Vec2>>> parseBattlePathDataByPlistFile(const std::string &plistPath);
 
 #endif /* ToolFunction_hpp */

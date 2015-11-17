@@ -13,7 +13,7 @@
 #include "GameData.hpp"
 
 #include "ResourcesPath.h"
-#include "ToolFunction.cpp"
+#include "ToolFunction.hpp"
 
 #include "json/rapidjson.h"
 #include "json/stringbuffer.h"
@@ -54,7 +54,6 @@ bool BattleLayer::init(){
     _battleMap->addChild(testMonster);
     
     
-    this->_drawSomthingOnMap();
     return true;
 }
 
@@ -133,6 +132,8 @@ void BattleLayer::onEnter(){
         
     };
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_touchListener, this);
+    
+    _drawSomthingOnMap();
 }
 
 void BattleLayer::onExit(){
@@ -200,29 +201,37 @@ void BattleLayer::_loadBattleData(){
     
     
     //astar and path
-    __Dictionary *astarDictionary = __Dictionary::createWithContentsOfFile(getBattleMapAstarDataPlistFilePathWithStageName(_stage).c_str());
+    _battleAStarData = parseBattleAStarDataWithPlistFile(getBattleMapAstarDataPlistFilePathWithStageName(_stage));
+    _battlePathData = parseBattlePathDataByPlistFile(getBattleMapPathDataPlistFilePathWithStageName(_stage));
     
-    CCLOG("AStar Vale Map");
-    __Array *gridArray = static_cast<__Array *>(astarDictionary->objectForKey("grid"));
-    CCLOG("%zd", gridArray->count());
-    for (int index = 0; index < gridArray->count(); ++index){
-        __Dictionary *item = static_cast<__Dictionary *>(gridArray->getObjectAtIndex(index));
-        CCLOG("%d", item->count());
-    }
-    
+//    for (std::vector<BattleAStarGridData>::iterator iter = _battleAStarData.begin(); iter != _battleAStarData.end(); ++iter){
+//        CCLOG("(%d, %d) : %d", iter->row, iter->column, iter->walkable);
+//    }
     
 }
 
 void BattleLayer::_drawSomthingOnMap(){
     _testDrawNode = DrawNode::create();
     _battleMap->addChild(_testDrawNode, 10000);
-    PointArray *roadPointArray = PointArray::create(_testRoadPointVector.size());
-    for (std::vector<Vec2>::iterator iter = _testRoadPointVector.begin(); iter != _testRoadPointVector.end(); ++iter){
-        _testDrawNode->drawPoint(*iter, 10, Color4F::BLACK);
-        roadPointArray->addControlPoint(*iter);
+    
+    float width = 34;
+    float height = 30;
+//    for (std::vector<BattleAStarGridData>::iterator iter = _battleAStarData.begin(); iter != _battleAStarData.end(); ++iter){
+//        if (iter->walkable){
+//            _testDrawNode->drawRect(Vec2(iter->column * width, iter->row * height), Vec2((iter->column + 1) * width, (iter->row + 1) * height), Color4F(100, 100, 100, 100));
+//        } else {
+//            _testDrawNode->drawRect(Vec2(iter->column * width, iter->row * height), Vec2((iter->column + 1) * width, (iter->row + 1) * height), Color4F(200, 200, 200, 100));
+//        }
+//    }
+    
+    for (auto iter1 = _battlePathData.begin(); iter1 != _battlePathData.end(); ++iter1){
+        for (auto iter2 = iter1->begin(); iter2 != iter1->end(); ++iter2){
+            for (auto iter3 = iter2->begin(); iter3 != iter2->end(); ++iter3){
+                CCLOG("(%f, %f)", iter3->x, iter3->y);
+                _testDrawNode->drawPoint(*iter3, 4, Color4F(100, 100, 100, 255));
+            }
+        }
     }
-    _testDrawNode->drawCardinalSpline(roadPointArray, 0.1, 100, Color4F::BLACK);
-//    _testDrawNode->drawCatmullRom(roadPointArray, 100, Color4F::BLACK);
     
 }
 

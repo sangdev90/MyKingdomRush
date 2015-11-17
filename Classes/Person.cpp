@@ -8,6 +8,6 @@
 
 #include "Person.hpp"
 #include "ResourcesPath.h"
-#include "ToolFunction.cpp"
+#include "ToolFunction.hpp"
 #include "Behavior.hpp"
 
