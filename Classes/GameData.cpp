@@ -18,6 +18,7 @@ USING_NS_CC;
 
 GameData *GameData::_gameData = nullptr;
 const MonsterName GameData::monsterName{};
+const float GameData::defaultDelayPerUnit = 0.05;
 
 GameData *GameData::getInstance(){
     if (_gameData == nullptr){

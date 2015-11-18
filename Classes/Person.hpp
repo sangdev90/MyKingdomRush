@@ -30,9 +30,9 @@ protected:
     std::string _side;  //for example : monster || soldier
     std::string _info;  //
     
-    int _hp;
-    int _speed;
-    int _attackRange;
+    int _hp = 100;
+    int _runSpeed = 10;
+    int _attackRange = 50;
     
     int _numberOfAttackAnimationFrame;
     cocos2d::Vector<cocos2d::SpriteFrame *> _attackAniamtionFrameArray;

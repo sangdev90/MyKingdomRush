@@ -28,6 +28,8 @@ public:
     
     static GameData *getInstance();
     
+    static const float defaultDelayPerUnit;
+    
     
     std::map<std::string, MonsterData> monsterDataMap;
     static const MonsterName monsterName;

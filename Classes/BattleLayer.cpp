@@ -47,13 +47,9 @@ bool BattleLayer::init(){
     this->_loadBattleData();
     
     
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
-    GameData::getInstance()->loadMonsterData();
-    Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug);
-    testMonster->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
-    _battleMap->addChild(testMonster);
     
     
+    _someTestCode();
     return true;
 }
 
@@ -212,7 +208,7 @@ void BattleLayer::_loadBattleData(){
 
 void BattleLayer::_drawSomthingOnMap(){
     _testDrawNode = DrawNode::create();
-    _battleMap->addChild(_testDrawNode, 10000);
+    _battleMap->addChild(_testDrawNode, 0);
     
     float width = 34;
     float height = 30;
@@ -224,15 +220,28 @@ void BattleLayer::_drawSomthingOnMap(){
 //        }
 //    }
     
-    for (auto iter1 = _battlePathData.begin(); iter1 != _battlePathData.end(); ++iter1){
-        for (auto iter2 = iter1->begin(); iter2 != iter1->end(); ++iter2){
-            for (auto iter3 = iter2->begin(); iter3 != iter2->end(); ++iter3){
-                CCLOG("(%f, %f)", iter3->x, iter3->y);
-                _testDrawNode->drawPoint(*iter3, 4, Color4F(100, 100, 100, 255));
-            }
+//    for (auto iter1 = _battlePathData.begin(); iter1 != _battlePathData.end(); ++iter1){
+//        for (auto iter2 = iter1->begin(); iter2 != iter1->end(); ++iter2){
+//            for (auto iter3 = iter2->begin(); iter3 != iter2->end(); ++iter3){
+////                CCLOG("(%f, %f)", iter3->x, iter3->y);
+//                _testDrawNode->drawPoint(*iter3, 4, Color4F(100, 100, 100, 255));
+//            }
+//        }
+//    }
+    
+}
+
+void BattleLayer::_someTestCode(){
+    
+    
+    for (int i =0; i< 2; ++i){
+        for (int j = 0; j < 3; ++j){
+            SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
+            GameData::getInstance()->loadMonsterData();
+            Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[i][j]);
+            _battleMap->addChild(testMonster, 1);
         }
     }
-    
 }
 
 

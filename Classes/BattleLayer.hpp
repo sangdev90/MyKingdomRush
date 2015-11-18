@@ -55,6 +55,7 @@ private:
     //Draw Test
     void _drawSomthingOnMap();
     cocos2d::DrawNode *_testDrawNode;
+    void _someTestCode();
 };
 
 #endif /* BattleLayer_hpp */
