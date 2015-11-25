@@ -11,6 +11,7 @@
 #include "BattleUILayer.hpp"
 #include "Monster.hpp"
 #include "GameData.hpp"
+#include "Tower.hpp"
 
 #include "ResourcesPath.h"
 #include "ToolFunction.hpp"
@@ -48,7 +49,7 @@ bool BattleLayer::init(){
     
     
     
-    
+    _drawSomthingOnMap();
     _someTestCode();
     return true;
 }
@@ -129,7 +130,7 @@ void BattleLayer::onEnter(){
     };
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_touchListener, this);
     
-    _drawSomthingOnMap();
+    
 }
 
 void BattleLayer::onExit(){
@@ -144,8 +145,8 @@ void BattleLayer::_loadBattle(){
     
     _battleMap = Sprite::create(BATTLE_MAP_STAGE_1);
     _mapSize = _battleMap->getContentSize();
-    _battleMap->setScale(0.8);
-    _currentMapScale = 0.8;
+    _battleMap->setScale(0.6);
+    _currentMapScale = 0.6;
     _battleMap->setPosition(_visibleSize.width / 2, _visibleSize.height / 2);
     this->addChild(_battleMap, 1);
     
@@ -173,11 +174,11 @@ void BattleLayer::_dealMapScaleData(){
 void BattleLayer::_loadBattleData(){
     
     std::string jsonPath = std::string("res/data/battle/battle_data_") + _stage + ".json";
-    CCLOG("Battle Data JSON Path : %s", jsonPath.c_str());
+//    CCLOG("Battle Data JSON Path : %s", jsonPath.c_str());
     std::string fullJsonPath = FileUtils::getInstance()->fullPathForFilename(jsonPath);
-    CCLOG("Battle Data JSON Full Path : %s", fullJsonPath.c_str());
+//    CCLOG("Battle Data JSON Full Path : %s", fullJsonPath.c_str());
     std::string jsonStringData = FileUtils::getInstance()->getStringFromFile(fullJsonPath);
-    CCLOG("Battle Data JSON String : %s", jsonStringData.c_str());
+//    CCLOG("Battle Data JSON String : %s", jsonStringData.c_str());
     
     rapidjson::Document battleJsonDocument;
     battleJsonDocument.Parse<0>(jsonStringData.c_str());
@@ -185,11 +186,38 @@ void BattleLayer::_loadBattleData(){
         CCLOG("Parse JSON : %s \n Error : %u", jsonPath.c_str(), battleJsonDocument.GetParseError());
     }else {
         if (battleJsonDocument.IsObject()){
-            _battleData.monsterAppearPoint.x = battleJsonDocument["monsterAppearPoint"]["x"].GetDouble();
-            _battleData.monsterAppearPoint.y = battleJsonDocument["monsterAppearPoint"]["y"].GetDouble();
             
             _battleData.coin = battleJsonDocument["coin"].GetInt();
             _battleData.hp = battleJsonDocument["hp"].GetInt();
+            
+//            if (battleJsonDocument["defencePoint"].IsArray()){
+//                for (int index = 0; index < battleJsonDocument["defencePoint"].Size(); ++index){
+//                    Vec2 point = Vec2(battleJsonDocument["defencePoint"][index]["x"].GetInt(), battleJsonDocument["defencePoint"][index]["y"].GetInt());
+//                }
+//            }
+            
+            if (battleJsonDocument["towerBuildPoint"].IsArray()){
+                CCLOG("TowerBuildPoint is Array");
+                for (int index = 0; index < battleJsonDocument["towerBuildPoint"].Size(); ++index){
+                    Vec2 point = Vec2(battleJsonDocument["towerBuildPoint"][index]["x"].GetInt(), battleJsonDocument["towerBuildPoint"][index]["y"].GetInt());
+                    _battleData.towerBuildPoint.push_back(point);
+                }
+            }
+
+            if (battleJsonDocument["npcTowerBuildPoint"].IsArray()){
+                for (int index = 0; index < battleJsonDocument["npcTowerBuildPoint"].Size(); ++index){
+                    Vec2 point = Vec2(battleJsonDocument["npcTowerBuildPoint"][index]["x"].GetInt(), battleJsonDocument["npcTowerBuildPoint"][index]["y"].GetInt());
+                    _battleData.npcTowerBuildPoint.push_back(point);
+                }
+            }
+            
+            if (battleJsonDocument["monster"].IsArray()){
+                for (int index = 0; index < battleJsonDocument["monster"].Size(); ++index){
+                    std::string monster = battleJsonDocument["monster"][index].GetString();
+                    _battleData.monster.push_back(monster);
+                }
+            }
+            
         }
     }
     
@@ -203,6 +231,11 @@ void BattleLayer::_loadBattleData(){
 //    for (std::vector<BattleAStarGridData>::iterator iter = _battleAStarData.begin(); iter != _battleAStarData.end(); ++iter){
 //        CCLOG("(%d, %d) : %d", iter->row, iter->column, iter->walkable);
 //    }
+    
+    GameData::getInstance()->loadTowerData();
+    GameData::getInstance()->loadTowerActorData();
+    GameData::getInstance()->loadTowerShooterData();
+    GameData::getInstance()->loadTowerShootThingData();
     
 }
 
@@ -234,14 +267,21 @@ void BattleLayer::_drawSomthingOnMap(){
 void BattleLayer::_someTestCode(){
     
     
-    for (int i =0; i< 2; ++i){
-        for (int j = 0; j < 3; ++j){
-            SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
-            GameData::getInstance()->loadMonsterData();
-            Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[i][j]);
-            _battleMap->addChild(testMonster, 1);
-        }
+//    for (int i =0; i< 2; ++i){
+//        for (int j = 0; j < 3; ++j){
+//            SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
+//            GameData::getInstance()->loadMonsterData();
+//            Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[i][j]);
+//            _battleMap->addChild(testMonster, 1);
+//        }
+//    }
+//    
+//
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/image/tower/tower.plist");
+    for (auto towerBuildPoint : _battleData.towerBuildPoint){
+        
     }
+    
 }
 
 

@@ -18,9 +18,10 @@ public:
     int id;
     std::string battleName;
     
-    cocos2d::Vec2 monsterAppearPoint;
-    cocos2d::Vec2 defencePoint;
+    std::vector<cocos2d::Vec2> defencePoint;
     std::vector<cocos2d::Vec2> towerBuildPoint;
+    std::vector<cocos2d::Vec2> npcTowerBuildPoint;
+    std::vector<std::string> monster;
     int coin;
     int hp;
 };

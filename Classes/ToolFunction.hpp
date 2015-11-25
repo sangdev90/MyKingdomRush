@@ -151,9 +151,28 @@ inline float distanceBetweenTwoVec2(const cocos2d::Vec2 &leftPoint, const cocos2
  */
 inline void printBattleData(const BattleData &battleData){
     CCLOG("游戏运行时的战场数据：---------------------------------------------------------------------");
-    CCLOG("MonsterAppearPoint : (%f, %f)", battleData.monsterAppearPoint.x, battleData.monsterAppearPoint.y);
-    CCLOG("DefencePoint: (%f, %f)", battleData.defencePoint.x, battleData.defencePoint.y);
+    CCLOG("BattleID : %d", battleData.id);
+    CCLOG("BattleName : %s", battleData.battleName.c_str());
+    CCLOG("DefencePoint: ");
+    for (cocos2d::Vec2 point : battleData.defencePoint){
+        std::cout << "(" << point.x << ", " << point.y << ") ";
+    }
+    std::cout << std::endl;
     CCLOG("TowerBuildPoint:");
+    for (cocos2d::Vec2 point : battleData.towerBuildPoint){
+        std::cout << "(" << point.x << ", " << point.y << ") ";
+    }
+    std::cout << std::endl;
+    CCLOG("NpcBuildPoint:");
+    for (cocos2d::Vec2 point : battleData.npcTowerBuildPoint){
+        std::cout << "(" << point.x << ", " << point.y << ") ";
+    }
+    std::cout << std::endl;
+    CCLOG("Monster:");
+    for (std::string monsterName : battleData.monster){
+        std::cout << monsterName << " ";
+    }
+    std::cout << std::endl;
     CCLOG("Coin: %d", battleData.coin);
     CCLOG("HP: %d", battleData.hp);
     CCLOG("---------------------------------------------------------------------------------------");
@@ -247,6 +266,34 @@ inline std::string getBattleMapPathDataPlistFilePathWithStageName(const std::str
 }
 
 /**
+ *  通过塔的名字和等级获得塔的素材名
+ *
+ *  @param name  塔的名字
+ *  @param level 塔的等级
+ *
+ *  @return 塔的素材名
+ */
+inline std::string getTowerSriteFrameNameByNameAndLevel(const std::string &name, const std::string &level){
+    
+    std::string towerSpriteFrameName = name + "_" + level + ".png";
+    return towerSpriteFrameName;
+    
+}
+
+/**
+ *  通过射手的名字和等级获得他的静立素材名
+ *
+ *  @param name  名字
+ *  @param level 等级
+ *
+ *  @return 素材名
+ */
+inline std::string getTowerShooterSpriteFrameNameByNameAndLevel(const std::string &name, const std::string &level){
+    std::string towerShooterFrameName = name + "_" + level + "down.png";
+    return towerShooterFrameName;
+}
+
+/**
  *  解析战场 AStar plist 文件（利用 OC）
  *
  *  @param plistPath plist 文件路径
@@ -263,5 +310,7 @@ std::vector<BattleAStarGridData> parseBattleAStarDataWithPlistFile(const std::st
  *  @return 储存着路径数据的数据结构
  */
 std::vector<std::vector<std::vector<cocos2d::Vec2>>> parseBattlePathDataByPlistFile(const std::string &plistPath);
+
+
 
 #endif /* ToolFunction_hpp */

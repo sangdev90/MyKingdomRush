@@ -17,8 +17,12 @@ const std::string CREDITS_UI_PLIST  = "res/image/credits/credits_spritesheet.pli
 const std::string WORLDMAP_UI_PLIST = "res/image/worldmap/worldmap_ui_spritesheet.plist";
 const std::string BATTLE_UI_PLIST   = "res/image/battle/battleui/battle_ui_spritesheet.plist";
 
-const std::string CREDITS_DATA_JSON = "res/data/credits.json";
-const std::string MONSTER_DATA_JSON = "res/data/monster_data.json";
+const std::string CREDITS_DATA_JSON           = "res/data/credits.json";
+const std::string MONSTER_DATA_JSON           = "res/data/monster_data.json";
+const std::string TOWER_DATA_JSON             = "res/data/tower_data.json";
+const std::string TOWER_ACTOR_DATA_JSON       = "res/data/tower_actor_data.json";
+const std::string TOWER_SHOOTER_DATA_JSON     = "res/data/tower_shooter_data.json";
+const std::string TOWER_SHOOT_THING_DATA_JSON = "res/data/tower_shoot_thing_data.json";
 
 const std::string ARIAL_FRONT_PATH = "res/front/arial.fnt";
 
