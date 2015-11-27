@@ -18,7 +18,7 @@ class TowerShooter;
 class ArcherTowerActor : public TowerActor{
 public:
     
-    static ArcherTowerActor *createArcherTowerActorByName();
+    static ArcherTowerActor *createArcherTowerActor();
     
     ArcherTowerActor():
     TowerActor::TowerActor("archer_tower", "level1") {

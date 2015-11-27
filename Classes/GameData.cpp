@@ -20,6 +20,8 @@ GameData *GameData::_gameData = nullptr;
 const MonsterName GameData::monsterName{};
 const TowerName GameData::towerName{};
 const TowerLevelTag GameData::towerLevelTag{};
+const TowerShooterName GameData::towerShooterName{};
+const TowerShootThingName GameData::towerShootThingName{};
 const float GameData::defaultDelayPerUnit = 0.05;
 
 GameData *GameData::getInstance(){

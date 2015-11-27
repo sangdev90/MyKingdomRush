@@ -7,3 +7,8 @@
 //
 
 #include "TowerShootThing.hpp"
+USING_NS_CC;
+
+TowerShooterThing::~TowerShooterThing(){
+    
+}

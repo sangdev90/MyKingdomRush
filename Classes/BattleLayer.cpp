@@ -279,7 +279,9 @@ void BattleLayer::_someTestCode(){
 //
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/image/tower/tower.plist");
     for (auto towerBuildPoint : _battleData.towerBuildPoint){
-        
+        Tower *testTower = Tower::createTowerByName(GameData::getInstance()->towerName.archerTower, this);
+        testTower->setPosition(towerBuildPoint);
+        _battleMap->addChild(testTower);
     }
     
 }

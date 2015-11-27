@@ -43,7 +43,7 @@ public:
     std::string level42 = "level42";
 };
 
-class TowerActorName {
+class TowerShooterName {
 public:
     std::string archer = "archer";
     std::string soldier = "soldier";
@@ -89,6 +89,8 @@ public:
     //Tower
     static const TowerName towerName;
     static const TowerLevelTag towerLevelTag;
+    static const TowerShooterName towerShooterName;
+    static const TowerShootThingName towerShootThingName;
     std::map<std::string, std::map<std::string, TowerData>> towerData;
     std::map<std::string, std::map<std::string, TowerActorData>> towerActorData;
     std::map<std::string, std::map<std::string, TowerShooterData>> towerShooterData;

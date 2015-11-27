@@ -7,8 +7,39 @@
 //
 
 #include "Tower.hpp"
+#include "GameData.hpp"
+
+#include "ArcherTower.hpp"
+#include "DefenceTower.hpp"
+#include "MageTower.hpp"
+#include "ArtilleryTower.hpp"
 
 USING_NS_CC;
+
+Tower *Tower::createTowerByName(const std::string &name, BattleLayer *battleLayer){
+    
+    if (name == GameData::getInstance()->towerName.archerTower){
+        Tower *archerTower = ArcherTower::createArcherTower();
+        archerTower->setBattleLayerPointer(battleLayer);
+        return archerTower;
+    }
+    
+    if (name == GameData::getInstance()->towerName.defenceTower){
+        
+    }
+    
+    if (name == GameData::getInstance()->towerName.mageTower){
+        
+    }
+    
+    if (name == GameData::getInstance()->towerName.artilleryTower){
+        
+    }
+    
+    CCLOG("要创建一个不知名的 Tower : %s ", name.c_str());
+    return nullptr;
+    
+}
 
 void Tower::changeLevel(const std::string &levelTag){
     
@@ -37,5 +68,17 @@ void Tower::updateTowerData(){
 }
 
 void Tower::updateLevel(){
+    
+}
+
+bool Tower::initTower(){
+    if (!Sprite::init()){
+        return false;
+    }
+    
+    return true;
+}
+
+Tower::~Tower(){
     
 }

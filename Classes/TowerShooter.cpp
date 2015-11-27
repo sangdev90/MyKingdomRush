@@ -8,7 +8,27 @@
 
 #include "TowerShooter.hpp"
 #include "GameData.hpp"
+
+#include "Archer.hpp"
+#include "Mage.hpp"
+
 USING_NS_CC;
+
+TowerShooter *TowerShooter::createTowerShooterByName(const std::string &name){
+    
+    if (name == GameData::getInstance()->towerShooterName.archer){
+        return Archer::createArcher();
+    }
+    
+    if (name == GameData::getInstance()->towerShooterName.mage){
+        
+    }
+    
+    CCLOG("要创建一个不知名的 Tower Shooter : %s", name.c_str());
+    return nullptr;
+    
+}
+
 
 TowerShooter::~TowerShooter(){}
 

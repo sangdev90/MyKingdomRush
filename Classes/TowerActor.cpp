@@ -9,6 +9,34 @@
 #include "TowerActor.hpp"
 #include "GameData.hpp"
 
+#include "ArcherTowerActor.hpp"
+#include "MageTowerActor.hpp"
+#include "DefenceTowerActor.hpp"
+#include "ArtilleryTowerActor.hpp"
+
+TowerActor *TowerActor::createTowerActorByName(const std::string &name){
+    
+    if (name == GameData::getInstance()->towerName.archerTower){
+        return ArcherTowerActor::createArcherTowerActor();
+    }
+    
+    if (name == GameData::getInstance()->towerName.defenceTower){
+        
+    }
+    
+    if (name == GameData::getInstance()->towerName.mageTower){
+        
+    }
+    
+    if (name == GameData::getInstance()->towerName.artilleryTower){
+        
+    }
+    
+    CCLOG("要创建一个不知名的 TowerActor : %s", name.c_str());
+    return nullptr;
+    
+}
+
 void TowerActor::updateTowerLevel(const std::string &level){
     if (level == "level41" || level == "level42"){
         if (level == "level3"){

@@ -18,22 +18,25 @@
 #include "TowerData.hpp"
 
 class BattleLayer;
+class TowerActor;
 
 class Tower : public cocos2d::Sprite{
 public:
     
     static Tower *createTowerByName(const std::string &name, BattleLayer *battleLayer);
     
+    Tower(const std::string &name):
+    _name(name), _level("level1") {};
     virtual ~Tower() = 0;
     
     void changeLevel(const std::string &levelTag = "");
     void updateTowerData();
-    virtual void updateLevel();
-    
     void setBattleLayerPointer(BattleLayer *battleLayer){
         _battleLayerPointer = battleLayer;
     };
     
+    virtual void updateLevel();
+    virtual bool initTower();
     
 protected:
     
@@ -43,7 +46,7 @@ protected:
     std::string _level = "level1";
     std::string _info;
     
-    
+    TowerActor *_towerActor;
 };
 
 

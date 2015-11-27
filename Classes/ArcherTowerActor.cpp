@@ -8,9 +8,10 @@
 
 #include "ArcherTowerActor.hpp"
 #include "ToolFunction.hpp"
+#include "TowerShooter.hpp"
 USING_NS_CC;
 
-ArcherTowerActor *ArcherTowerActor::createArcherTowerActorByName(){
+ArcherTowerActor *ArcherTowerActor::createArcherTowerActor(){
     
     ArcherTowerActor *newArcherTowerActor = new (std::nothrow) ArcherTowerActor();
     if (newArcherTowerActor && newArcherTowerActor->initArcherTowerActor()){
@@ -28,8 +29,14 @@ bool ArcherTowerActor::initArcherTowerActor(){
     if (!this->initWithSpriteFrameName(getTowerSriteFrameNameByNameAndLevel(_name, "level1"))){
         return false;
     }
-
-    //TODO: 这里让 TowerShooter 入场
+    
+    _leftTowerShooter = TowerShooter::createTowerShooterByName(GameData::getInstance()->getTowerActorDataByNameAndLevel(_name, _level).shooterName);
+    _rightTowerShooter = TowerShooter::createTowerShooterByName(GameData::getInstance()->getTowerActorDataByNameAndLevel(_name, _level).shooterName);
+    _leftTowerShooter->setPosition(90, 110);
+    _rightTowerShooter->setPosition(120, 110);
+    this->addChild(_leftTowerShooter, 1);
+    this->addChild(_rightTowerShooter, 1);
+    
     return true;
 }
 

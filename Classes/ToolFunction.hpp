@@ -19,6 +19,8 @@
 #include "MonsterData.hpp"
 #include "BattleAStarGridData.hpp"
 
+#pragma mark - Inline Function
+
 inline cocos2d::Menu *createMenuWithSpriteByThreeTextureAndCallback(const std::string &normalTexture, const std::string &selectedTexture, const std::string &disabledTexture, const cocos2d::ccMenuCallback &callback){
     
     cocos2d::Sprite *normalSprite;
@@ -289,9 +291,16 @@ inline std::string getTowerSriteFrameNameByNameAndLevel(const std::string &name,
  *  @return 素材名
  */
 inline std::string getTowerShooterSpriteFrameNameByNameAndLevel(const std::string &name, const std::string &level){
-    std::string towerShooterFrameName = name + "_" + level + "down.png";
+    std::string towerShooterFrameName = name + "_" + level + "_" + "down.png";
     return towerShooterFrameName;
 }
+
+inline std::string getTowerShootThingSpriteFrameNameByNameAndLevel(const std::string &name, const std::string &level){
+    std::string towerShootName = name + "_" + level + ".png";
+    return towerShootName;
+}
+
+#pragma mark - nonInline Function
 
 /**
  *  解析战场 AStar plist 文件（利用 OC）
