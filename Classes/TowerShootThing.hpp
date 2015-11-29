@@ -12,14 +12,14 @@
 #include <stdio.h>
 #include "cocos2d.h"
 
-class TowerShooterThing : public cocos2d::Sprite{
+class TowerShootThing : public cocos2d::Sprite{
 public:
     
-    static TowerShooterThing *createTowerShooterThingByNameAndLevel(const std::string &name, const  std::string &level);
+    static TowerShootThing *createTowerShootThingByNameAndLevel(const std::string &name, const  std::string &level);
     
-    TowerShooterThing(const std::string &name, const std::string &level):
+    TowerShootThing(const std::string &name, const std::string &level):
     _name(name), _level(level) {};
-    virtual ~TowerShooterThing() = 0;
+    virtual ~TowerShootThing() = 0;
     
     virtual void attack(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to, const std::function<void ()> &attackCallback) = 0;
     

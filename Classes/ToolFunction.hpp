@@ -142,8 +142,28 @@ inline double string2double(const std::string &string){
     return number;
 }
 
+/**
+ *  计算两个点的距离
+ *
+ *  @param leftPoint  点 1
+ *  @param rightPoint 点 2
+ *
+ *  @return 距离
+ */
 inline float distanceBetweenTwoVec2(const cocos2d::Vec2 &leftPoint, const cocos2d::Vec2 &rightPoint){
     return static_cast<float>(sqrt( (leftPoint.x - rightPoint.x)*(leftPoint.x - rightPoint.x) + (leftPoint.y - rightPoint.y)*(leftPoint.y - rightPoint.y) ));
+}
+
+/**
+ *  计算两个点的距离，不开方的版本，如果没有必要，就不要开方
+ *
+ *  @param leftPoint  点 1
+ *  @param rightPoint 点 2
+ *
+ *  @return 距离的平方
+ */
+inline float distanceBetweenTwoVec2WithoutSqrt(const cocos2d::Vec2 &leftPoint, const cocos2d::Vec2 &rightPoint){
+    return (leftPoint.x - rightPoint.x)*(leftPoint.x - rightPoint.x) + (leftPoint.y - rightPoint.y)*(leftPoint.y - rightPoint.y);
 }
 
 /**
@@ -295,12 +315,58 @@ inline std::string getTowerShooterSpriteFrameNameByNameAndLevel(const std::strin
     return towerShooterFrameName;
 }
 
+/**
+ *  通过子弹的名字和等级获得子弹的素材名
+ *
+ *  @param name  名字
+ *  @param level 等级
+ *
+ *  @return 素材名
+ */
 inline std::string getTowerShootThingSpriteFrameNameByNameAndLevel(const std::string &name, const std::string &level){
     std::string towerShootName = name + "_" + level + ".png";
     return towerShootName;
 }
 
-#pragma mark - nonInline Function
+/**
+ *  根据射手的名字、等级、攻击方向、帧数得到攻击动画精灵帧的名字
+ *
+ *  @param name     射手的名字
+ *  @param level    射手的等级
+ *  @param distance 攻击方向
+ *  @param number   帧数
+ *
+ *  @return 精灵帧素材的名字
+ */
+inline std::string getTowerShooterAttackFrameNameByNameAndLevelAndDistanceAndNumber(const std::string &name, const std::string &level, const std::string distance, int number){
+    std::string numberString = (number < 10) ? std::string("0") + int2string(number) : int2string(number);
+    if (distance == "up"){
+        std::string towerShooterAttackFrameName = name + "_" + level + "_attackup_" + numberString + ".png";
+//        CCLOG("%s, %s", __func__, towerShooterAttackFrameName.c_str());
+        return towerShooterAttackFrameName;
+    }else {
+        std::string towerShooterAttackFramenName = name + "_" + level + "_attackdown_" + numberString + ".png";
+//        CCLOG("%s, %s", __func__, towerShooterAttackFramenName.c_str());
+        return towerShooterAttackFramenName;
+    }
+}
+
+/**
+ *  根据战场上的演员算出他在战场上的 ZOrder ， 用以设置他们的遮挡关系
+ *
+ *  @param actor 战场上的演员
+ *
+ *  @return ZOrder
+ */
+inline int getBattleLocalZOrderByActor(cocos2d::Node *actor){
+    int battleHeight = 1536;
+    int stair = 8;
+    int yCoord = actor->getPosition().y;
+    int zOrder = (battleHeight - yCoord) / stair + 100;
+    return zOrder;
+}
+
+#pragma mark - Noninline Function
 
 /**
  *  解析战场 AStar plist 文件（利用 OC）
@@ -319,6 +385,7 @@ std::vector<BattleAStarGridData> parseBattleAStarDataWithPlistFile(const std::st
  *  @return 储存着路径数据的数据结构
  */
 std::vector<std::vector<std::vector<cocos2d::Vec2>>> parseBattlePathDataByPlistFile(const std::string &plistPath);
+
 
 
 

@@ -140,6 +140,11 @@ void BattleLayer::onExit(){
     }
 }
 
+Vec2 BattleLayer::getSomethingOnMapWorldPoint(cocos2d::Sprite *node){
+    Vec2 worldPoint = _battleMap->convertToWorldSpace(node->getPosition());
+    return worldPoint;
+}
+
 void BattleLayer::_loadBattle(){
     _visibleSize = Director::getInstance()->getVisibleSize();
     
@@ -275,16 +280,45 @@ void BattleLayer::_someTestCode(){
 //            _battleMap->addChild(testMonster, 1);
 //        }
 //    }
-//    
-//
+
+    //Add Tower
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/image/tower/tower.plist");
     for (auto towerBuildPoint : _battleData.towerBuildPoint){
         Tower *testTower = Tower::createTowerByName(GameData::getInstance()->towerName.archerTower, this);
+        testTower->setAnchorPoint(Vec2(0.5, 0));
         testTower->setPosition(towerBuildPoint);
         _battleMap->addChild(testTower);
+        towerArray.push_back(testTower);
     }
     
+    //Add Monster
+    GameData::getInstance()->loadMonsterData();
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
+    this->schedule([&](float dt){
+        
+        int bigPathNumber = static_cast<int>(_battlePathData.size());
+        int smallPathNumber = static_cast<int>(_battlePathData[0].size());
+        Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[bigPathNumber * CCRANDOM_0_1()][smallPathNumber * CCRANDOM_0_1()]);
+        _battleMap->addChild(testMonster, 1);
+        monsterArray.push_back(testMonster);
+        
+        
+    }, 2, "TestCodeAddMonster");
+    
+//    this->schedule([&](float dt){
+//        
+//        for (auto tower : _towerArray){
+//            tower->attack(tower->convertToNodeSpace(tower->convertToWorldSpace(tower->getPosition())),
+//                          tower->convertToNodeSpace(tower->convertToWorldSpace(Vec2(tower->getPositionX() + 50, tower->getPositionY() + 50))),
+//                          [&](){
+//                              CCLOG("%s", _battleMap->getDescription().c_str());
+//                          });
+//        }
+//        
+//    }, 3.0, "Test Tower Attack");
+    
 }
+
 
 
 

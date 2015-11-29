@@ -403,8 +403,8 @@ TowerShootThingData GameData::getTowerShootThingDataByNameAndLevel(const std::st
         CCLOG("GameData %s, Can't find Tower Shooter Thing Data for name : %s, for level : %s", __func__, name.c_str(), level.c_str());
         return getTowerShootThingData;
     }else {
-        TowerShootThingData getTowerShooterThingData = towerShootThingData[name][level];
-        return getTowerShooterThingData;
+        TowerShootThingData getTowerShootThingData = towerShootThingData[name][level];
+        return getTowerShootThingData;
     }
 }
 

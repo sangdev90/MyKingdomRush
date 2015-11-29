@@ -18,9 +18,22 @@ public:
     Person(const std::string &name):
     _name(name) {};
     
+#pragma mark - Static Method
+    
+    static Person *createMonsterByName(const std::string &name, const std::vector<cocos2d::Vec2> &path);
+    static Person *createSoldierByName(const std::string &name);
+    
+#pragma mark - Pure Virtual Method
+    
     virtual void run() = 0;
     virtual void attack(Person *attackTarget) = 0;
     virtual void die() = 0;
+    
+#pragma mark - Impure Virtual Method
+    
+#pragma mark - Public Data Member
+    
+    bool isDie = false;
     
 protected:
     
@@ -33,6 +46,9 @@ protected:
     int _hp = 100;
     int _runSpeed = 10;
     int _attackRange = 50;
+    
+    
+    //MARK: Up is I want, Down is to be change
     
     int _numberOfAttackAnimationFrame;
     cocos2d::Vector<cocos2d::SpriteFrame *> _attackAniamtionFrameArray;

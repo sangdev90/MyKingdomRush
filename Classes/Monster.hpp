@@ -19,11 +19,13 @@ class BattleLayer;
 class Monster : public Person{
 public:
     
+#pragma mark - Static Method
     static Monster *createWithName(const std::string &name, const std::vector<cocos2d::Vec2> &path);
     
     Monster(const std::string &name):
     Person(name) {};
     
+#pragma mark - Impure Method
     virtual bool init() override;
     virtual void onEnter() override;
     virtual void onExit() override;
@@ -33,6 +35,7 @@ public:
     virtual void die() override;
     virtual void update(float dt) override;
     
+#pragma mark - Member Method
     void setPath(const std::vector<cocos2d::Vec2> &path){
         _pathVector = path;
     };
@@ -40,6 +43,9 @@ public:
     void setBattleLayerPoint(BattleLayer *battleLayer){
         _battleLayerPointer = battleLayer;
     };
+    
+#pragma mark - Public Data Member
+    
     
 protected:
     MonsterData _myMonsterData;

@@ -117,6 +117,7 @@ void Monster::die(){
 void Monster::update(float dt){
 //    Vec2 currentPosition = this->getPosition();
 //    CCLOG("(%.2f, %.2f)", currentPosition.x, currentPosition.y);
+    this->setLocalZOrder(getBattleLocalZOrderByActor(this));
 }
 
 void Monster::_initMonsterData(){

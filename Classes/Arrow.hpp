@@ -12,13 +12,13 @@
 #include <stdio.h>
 #include "TowerShootThing.hpp"
 
-class Arrow : public TowerShooterThing{
+class Arrow : public TowerShootThing{
 public:
     
     static Arrow *createArrowByLevel(const std::string &level);
     
     Arrow(const std::string &level):
-    TowerShooterThing("arrow", level) {};
+    TowerShootThing("arrow", level) {};
     
     bool initArrow();
     

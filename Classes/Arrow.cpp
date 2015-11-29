@@ -57,13 +57,12 @@ void Arrow::attack(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to, const std
         this->runAction(Sequence::create(
                                          Spawn::create(firstHalfMoveToAction, firstHalfRotateAction, NULL),
                                          Spawn::create(secondHalfMoveToAction, secondHalfRotateAction, NULL),
-                                         CallFuncN::create([&](Node *target){
+                                         CallFuncN::create([&, attackCallback](Node *target){
                                             CCLOG("箭射完了");
 //                                            attackCallback();
                                          }),
                                          NULL));
         
     }
-    //TODO: 11,27 从这里开始，现在的状态是低级射箭的动作刚做完
     
 }

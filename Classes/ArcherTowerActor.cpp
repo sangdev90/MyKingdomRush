@@ -32,8 +32,8 @@ bool ArcherTowerActor::initArcherTowerActor(){
     
     _leftTowerShooter = TowerShooter::createTowerShooterByName(GameData::getInstance()->getTowerActorDataByNameAndLevel(_name, _level).shooterName);
     _rightTowerShooter = TowerShooter::createTowerShooterByName(GameData::getInstance()->getTowerActorDataByNameAndLevel(_name, _level).shooterName);
-    _leftTowerShooter->setPosition(90, 110);
-    _rightTowerShooter->setPosition(120, 110);
+    _leftTowerShooter->setPosition(95, 120);
+    _rightTowerShooter->setPosition(125, 120);
     this->addChild(_leftTowerShooter, 1);
     this->addChild(_rightTowerShooter, 1);
     
@@ -41,7 +41,26 @@ bool ArcherTowerActor::initArcherTowerActor(){
 }
 
 void ArcherTowerActor::attack(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to, const std::function<void ()> &attackCallback){
-    //TODO: 这里处理 TowerShooter 的 attack
+    
+//    CCLOG("箭塔的攻击坐标（地图节点坐标） Form:(%f, %f), To:(%f, %f)", from.x, from.y, to.x, to.y);
+    
+    Vec2 newFrom = this->convertToNodeSpace(from);
+    Vec2 newTo = this->convertToNodeSpace(to);
+    
+    CCLOG("箭塔的攻击坐标（塔节点坐标） From:(%f, %f), To:(%f, %f)", newFrom.x, newFrom.y, newTo.x, newTo.y);
+    
+    _leftTowerShooter->attack(newFrom, newTo, [attackCallback](){
+        
+//        CCLOG("这里的调用");
+//        CCLOG("%s", this->getDescription().c_str());
+        attackCallback();
+        
+    });
+    _rightTowerShooter->attack(newFrom, newTo, [attackCallback](){
+        
+        attackCallback();
+        
+    });
 }
 
 void ArcherTowerActor::updateTowerLevel(const std::string &level){

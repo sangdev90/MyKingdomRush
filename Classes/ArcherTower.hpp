@@ -21,8 +21,12 @@ public:
     Tower("archer_tower") {};
     ~ArcherTower() = default;
     
+    virtual void onEnter();
+    virtual void onExit();
     virtual void updateLevel();
     virtual bool initTower();
+    virtual void update(float dt);
+    virtual void attack(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to, const std::function<void ()> &attackCallback);
     
 private:
     
