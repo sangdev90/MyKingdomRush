@@ -46,7 +46,7 @@ void GameData::loadMonsterData(){
     
     std::string monsterDataFullPath = FileUtils::getInstance()->fullPathForFilename(MONSTER_DATA_JSON);
     std::string monsterStringData = FileUtils::getInstance()->getStringFromFile(monsterDataFullPath);
-//    CCLOG("%s", monsterStringData.c_str());
+    CCLOG("%s", monsterStringData.c_str());
     
     rapidjson::Document jsonDocoment;
     jsonDocoment.Parse<0>(monsterStringData.c_str());
@@ -55,37 +55,43 @@ void GameData::loadMonsterData(){
         return;
     }
     
+    std::vector<std::string> monsterNameVector = {"desertThug", "desertRaider", "desertArcher", "sandHound"};
+    
     if (jsonDocoment.IsObject()){
-        for (auto iter = jsonDocoment.MemberBegin(); iter != jsonDocoment.MemberEnd(); ++iter){
-            std::string monsterNameKey = iter->name.GetString();
-            CCLOG("%s", monsterNameKey.c_str());
+        for (std::string monsterNameString : monsterNameVector){
+            MonsterData oneMonsterData;
             
-            MonsterData monsterData{};
-            monsterData.id = iter->value["id"].GetInt();
-            monsterData.name = iter->value["name"].GetString();
-            monsterData.numberOfAttackFrame = iter->value["numberOfAttackFrame"].GetInt();
-            monsterData.numberOfBcakwardFrame = iter->value["numberOfBackwardFrame"].GetInt();
-            monsterData.numberOfDieFrame = iter->value["numberOfDieFrame"].GetInt();
-            monsterData.numberOfForwardFrame = iter->value["numberOfForwardFrame"].GetInt();
-            monsterData.numberOfTowardFrame = iter->value["numberOfTowardFrame"].GetInt();
-            monsterData.hp = iter->value["HP"].GetInt();
-            monsterData.speed = iter->value["Speed"].GetInt();
-            monsterDataMap[monsterNameKey] = monsterData;
+            oneMonsterData.name                    = jsonDocoment[monsterNameString.c_str()]["name"].GetString();
+            oneMonsterData.id                      = jsonDocoment[monsterNameString.c_str()]["id"].GetInt();
+            oneMonsterData.physicalAttack          = jsonDocoment[monsterNameString.c_str()]["physicalAttack"].GetInt();
+            oneMonsterData.magicAttack             = jsonDocoment[monsterNameString.c_str()]["magicAttack"].GetInt();
+            oneMonsterData.remotePhysicalAttack    = jsonDocoment[monsterNameString.c_str()]["remotePhysicalAttack"].GetInt();
+            oneMonsterData.remoteMagicAttack       = jsonDocoment[monsterNameString.c_str()]["remoteMagicAttack"].GetInt();
+            oneMonsterData.physicalDefence         = jsonDocoment[monsterNameString.c_str()]["physicalDefence"].GetString();
+            oneMonsterData.magicDefence            = jsonDocoment[monsterNameString.c_str()]["magicDefence"].GetString();
+            oneMonsterData.healthPoint             = jsonDocoment[monsterNameString.c_str()]["healthPoint"].GetInt();
+            oneMonsterData.speed                   = jsonDocoment[monsterNameString.c_str()]["speed"].GetString();
+            oneMonsterData.canAttack               = (jsonDocoment[monsterNameString.c_str()]["canAttack"].GetInt() == 1) ? true : false;
+            oneMonsterData.attackState             = jsonDocoment[monsterNameString.c_str()]["attackState"].GetString();
+            oneMonsterData.bullet                  = jsonDocoment[monsterNameString.c_str()]["bullet"].GetString();
+            oneMonsterData.attackRange             = jsonDocoment[monsterNameString.c_str()]["attackRange"].GetInt();
+            oneMonsterData.remoteAttackRange       = jsonDocoment[monsterNameString.c_str()]["remoteAttackRange"].GetInt();
+            oneMonsterData.afterlife               = jsonDocoment[monsterNameString.c_str()]["afterlife"].GetString();
+            oneMonsterData.bounty                  = jsonDocoment[monsterNameString.c_str()]["bounty"].GetInt();
+            oneMonsterData.runTowardFrameNumber    = jsonDocoment[monsterNameString.c_str()]["runTowardFrameNumber"].GetInt();
+            oneMonsterData.runForwardFrameNumber   = jsonDocoment[monsterNameString.c_str()]["runForwardFrameNumber"].GetInt();
+            oneMonsterData.runBackwardFrameNumber  = jsonDocoment[monsterNameString.c_str()]["runBackwardFrameNumber"].GetInt();
+            oneMonsterData.dieFrameNumber          = jsonDocoment[monsterNameString.c_str()]["dieFrameNumber"].GetInt();
+            oneMonsterData.attackFrameNumber       = jsonDocoment[monsterNameString.c_str()]["attackFrameNumber"].GetInt();
+            oneMonsterData.attackRemoteFrameNumber = jsonDocoment[monsterNameString.c_str()]["attackRemoteFrameNumber"].GetInt();
+            oneMonsterData.releaseSkillFrameNumber = jsonDocoment[monsterNameString.c_str()]["releaseSkillFrameNumber"].GetInt();
+
+            monsterData[monsterNameString] = oneMonsterData;
+            
         }
-        
     }
     
-    
-    CCLOG("STL 中的 MonsterData:");
-    for (std::pair<std::string, MonsterData> monsterDataPair : monsterDataMap){
-        CCLOG("%s :", monsterDataPair.first.c_str());
-        MonsterData *monsterDataItem = static_cast<MonsterData *>(&monsterDataPair.second);
-        CCLOG("name: %s", monsterDataItem->name.c_str());
-        CCLOG("id: %d", monsterDataItem->id);
-        CCLOG("frameInfo: %d, %d, %d, %d, %d", monsterDataItem->numberOfAttackFrame, monsterDataItem->numberOfBcakwardFrame, monsterDataItem->numberOfDieFrame, monsterDataItem->numberOfForwardFrame, monsterDataItem->numberOfTowardFrame);
-        CCLOG("HP: %d", monsterDataItem->hp);
-        CCLOG("Speed: %d", monsterDataItem->speed);
-    }
+    //TODO: 12,3 从这里开始，现在的状态是已经读入 MonsterData，看看读的对不对
     
 }
 
@@ -327,21 +333,22 @@ void GameData::loadTowerShootThingData(){
 #pragma mark - Get Methods
 
 MonsterData GameData::getMonsterDataByMonsterName(const std::string &monsterName){
-    if (monsterDataMap.size() == 0){
-        CCLOG("Monster is not init!!!!");
-        MonsterData monsterData{};
-        return monsterData;
-    }
-    
-    if (monsterDataMap.find(monsterName) != monsterDataMap.end()){
-        MonsterData monsterData = monsterDataMap[monsterName];
-        return monsterData;
-    }else {
-        CCLOG("Can't find monsterData %s", monsterName.c_str());
-        MonsterData monsterData{};
-        return monsterData;
-
-    }
+    //TODO: 待修改
+//    if (monsterDataMap.size() == 0){
+//        CCLOG("Monster is not init!!!!");
+//        MonsterData monsterData{};
+//        return monsterData;
+//    }
+//    
+//    if (monsterDataMap.find(monsterName) != monsterDataMap.end()){
+//        MonsterData monsterData = monsterDataMap[monsterName];
+//        return monsterData;
+//    }else {
+//        CCLOG("Can't find monsterData %s", monsterName.c_str());
+//        MonsterData monsterData{};
+//        return monsterData;
+//
+//    }
 }
 
 TowerData GameData::getTowerDataByTowerNameAndLevel(const std::string &name, const std::string &level){

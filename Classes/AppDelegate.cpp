@@ -6,8 +6,17 @@
 #include "WorldMapToBattleLayer.hpp"
 
 #include "BattleScene.hpp"
+#include "GameData.hpp"
 
 USING_NS_CC;
+
+void AppDelegate::testCode(){
+    
+    GameData::getInstance()->loadMonsterData();
+    Scene *testScene = Scene::create();
+    Director::getInstance()->runWithScene(testScene);
+    
+}
 
 AppDelegate::AppDelegate() {
 
@@ -47,6 +56,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("res");
 
     // Test
+    this->testCode();
+    return true;
     
     prepareBattle();
     BattleScene *testBattleScene = BattleScene::create("stage_1");

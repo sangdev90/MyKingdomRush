@@ -22,7 +22,10 @@
 /// 所有 Tower 和 Monster 的名字在这里，只是为了防止本人拙劣的低级的拼写错误
 class MonsterName {
 public:
-    std::string desertThug = "desertThug";
+    std::string desertThug   = "desertThug";
+    std::string desertRaider = "desertRaider";
+    std::string desertArcher = "desertArcher";
+    std::string sandHound    = "sandHound";
     
 };
 
@@ -77,7 +80,7 @@ public:
     static const float defaultDelayPerUnit;
     
     //Monster
-    std::map<std::string, MonsterData> monsterDataMap;
+    std::map<std::string, MonsterData> monsterData;
     static const MonsterName monsterName;
     void loadMonsterData();
     MonsterData getMonsterDataByMonsterName(const std::string &monsterName);

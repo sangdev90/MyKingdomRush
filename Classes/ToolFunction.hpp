@@ -200,24 +200,25 @@ inline void printBattleData(const BattleData &battleData){
     CCLOG("---------------------------------------------------------------------------------------");
 }
 
+//TODO: MonsterData改了 这里待修改
 /**
  *  打印 MonsterData
  *
  *  @param monsterData MonsterData
  */
-inline void printMonsterData(const MonsterData &monsterData){
-    CCLOG("Monster 数据：--------------------------------------------------------------------------");
-    CCLOG("name: %s", monsterData.name.c_str());
-    CCLOG("id: %d", monsterData.id);
-    CCLOG("numberOfAttackFrame: %d", monsterData.numberOfAttackFrame);
-    CCLOG("numberOfDieFrame: %d", monsterData.numberOfDieFrame);
-    CCLOG("numberOfForwardFrame: %d", monsterData.numberOfForwardFrame);
-    CCLOG("numberOfTowardFrame: %d", monsterData.numberOfTowardFrame);
-    CCLOG("numberOfBcakwardFrame: %d", monsterData.numberOfBcakwardFrame);
-    CCLOG("hp: %d", monsterData.hp);
-    CCLOG("speed: %d", monsterData.speed);
-    CCLOG("---------------------------------------------------------------------------------------");
-}
+//inline void printMonsterData(const MonsterData &monsterData){
+//    CCLOG("Monster 数据：--------------------------------------------------------------------------");
+//    CCLOG("name: %s", monsterData.name.c_str());
+//    CCLOG("id: %d", monsterData.id);
+//    CCLOG("numberOfAttackFrame: %d", monsterData.numberOfAttackFrame);
+//    CCLOG("numberOfDieFrame: %d", monsterData.numberOfDieFrame);
+//    CCLOG("numberOfForwardFrame: %d", monsterData.numberOfForwardFrame);
+//    CCLOG("numberOfTowardFrame: %d", monsterData.numberOfTowardFrame);
+//    CCLOG("numberOfBcakwardFrame: %d", monsterData.numberOfBcakwardFrame);
+//    CCLOG("hp: %d", monsterData.hp);
+//    CCLOG("speed: %d", monsterData.speed);
+//    CCLOG("---------------------------------------------------------------------------------------");
+//}
 
 /**
  *  获取 Monster 动画帧文件名
