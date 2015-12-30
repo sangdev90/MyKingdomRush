@@ -46,7 +46,6 @@ void GameData::loadMonsterData(){
     
     std::string monsterDataFullPath = FileUtils::getInstance()->fullPathForFilename(MONSTER_DATA_JSON);
     std::string monsterStringData = FileUtils::getInstance()->getStringFromFile(monsterDataFullPath);
-    CCLOG("%s", monsterStringData.c_str());
     
     rapidjson::Document jsonDocoment;
     jsonDocoment.Parse<0>(monsterStringData.c_str());
@@ -91,7 +90,36 @@ void GameData::loadMonsterData(){
         }
     }
     
-    //TODO: 12,3 从这里开始，现在的状态是已经读入 MonsterData，看看读的对不对
+//    CCLOG("STL 中的 Monster Data--------------------------------------------------------------------------------");
+//    for (std::string monsterNameString : monsterNameVector){
+//        CCLOG("**************************************************");
+//        CCLOG("MonsterName: %s", monsterData[monsterNameString].name.c_str());
+//        CCLOG("MonsterID  : %d", monsterData[monsterNameString].id);
+//        CCLOG("MonsterPhysicalAttack: %d", monsterData[monsterNameString].physicalAttack);
+//        CCLOG("MonsterMagicAttack   : %d", monsterData[monsterNameString].magicAttack);
+//        CCLOG("MonsterRemotePhysicalAttack: %d", monsterData[monsterNameString].remotePhysicalAttack);
+//        CCLOG("MonsterRemoteMagicAttack   : %d", monsterData[monsterNameString].remoteMagicAttack);
+//        CCLOG("MonsterPhysicalDefence     : %s", monsterData[monsterNameString].physicalDefence.c_str());
+//        CCLOG("MonsterMagicDefence        : %s", monsterData[monsterNameString].magicDefence.c_str());
+//        CCLOG("MonsterHealthPoint         : %d", monsterData[monsterNameString].healthPoint);
+//        CCLOG("MonsterSpeed               : %s", monsterData[monsterNameString].speed.c_str());
+//        CCLOG("MonsterCanAttack           : %d", monsterData[monsterNameString].canAttack);
+//        CCLOG("MonsterAttackState         : %s", monsterData[monsterNameString].attackState.c_str());
+//        CCLOG("MonsterBullet              : %s", monsterData[monsterNameString].bullet.c_str());
+//        CCLOG("MonsterAttackRange         : %d", monsterData[monsterNameString].attackRange);
+//        CCLOG("MonsterRemoteAttackRange   : %d", monsterData[monsterNameString].remoteAttackRange);
+//        CCLOG("MonsterAfterLife           : %s", monsterData[monsterNameString].afterlife.c_str());
+//        CCLOG("MonsterBounty              : %d", monsterData[monsterNameString].bounty);
+//        CCLOG("MonsterRunTowardFrameNumber: %d", monsterData[monsterNameString].runTowardFrameNumber);
+//        CCLOG("MonsterRunForwardFrameNumber : %d", monsterData[monsterNameString].runForwardFrameNumber);
+//        CCLOG("MonsterRunbackwardFrameNumber: %d", monsterData[monsterNameString].runBackwardFrameNumber);
+//        CCLOG("MonsterDieFrameNumber        : %d", monsterData[monsterNameString].dieFrameNumber);
+//        CCLOG("MonsterAttackFrameNumber     : %d", monsterData[monsterNameString].attackFrameNumber);
+//        CCLOG("MonsterAttackRemoteFrameNumber : %d", monsterData[monsterNameString].attackRemoteFrameNumber);
+//        CCLOG("MonsterReleaseSkillFrameNumber : %d", monsterData[monsterNameString].releaseSkillFrameNumber);
+//        CCLOG("**************************************************");
+//    }
+//    CCLOG("-----------------------------------------------------------------------------------------------------");
     
 }
 
@@ -333,22 +361,21 @@ void GameData::loadTowerShootThingData(){
 #pragma mark - Get Methods
 
 MonsterData GameData::getMonsterDataByMonsterName(const std::string &monsterName){
-    //TODO: 待修改
-//    if (monsterDataMap.size() == 0){
-//        CCLOG("Monster is not init!!!!");
-//        MonsterData monsterData{};
-//        return monsterData;
-//    }
-//    
-//    if (monsterDataMap.find(monsterName) != monsterDataMap.end()){
-//        MonsterData monsterData = monsterDataMap[monsterName];
-//        return monsterData;
-//    }else {
-//        CCLOG("Can't find monsterData %s", monsterName.c_str());
-//        MonsterData monsterData{};
-//        return monsterData;
-//
-//    }
+
+    if (monsterData.size() == 0){
+        CCLOG("Monster is not init!!!!");
+        MonsterData noGotMonsterData{};
+        return noGotMonsterData;
+    }
+    
+    if (monsterData.find(monsterName) != monsterData.end()){
+        MonsterData gotMonsterData = monsterData[monsterName];
+        return gotMonsterData;
+    }else {
+        CCLOG("Can't find monsterData %s", monsterName.c_str());
+        MonsterData noGotMonsterData;
+        return noGotMonsterData;
+    }
 }
 
 TowerData GameData::getTowerDataByTowerNameAndLevel(const std::string &name, const std::string &level){

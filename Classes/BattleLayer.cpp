@@ -47,10 +47,11 @@ bool BattleLayer::init(){
     this->_dealMapScaleData();
     this->_loadBattleData();
     
-    
-    
     _drawSomthingOnMap();
+    
+    //MARK: test
     _someTestCode();
+    
     return true;
 }
 
@@ -294,6 +295,11 @@ void BattleLayer::_someTestCode(){
     //Add Monster
     GameData::getInstance()->loadMonsterData();
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(getMonsterSpriteSheetPlistPath(GameData::getInstance()->monsterName.desertThug));
+//    int bigPathNumber = static_cast<int>(_battlePathData.size());
+//    int smallPathNumber = static_cast<int>(_battlePathData[0].size());
+//    Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[bigPathNumber * CCRANDOM_0_1()][smallPathNumber * CCRANDOM_0_1()]);
+//    _battleMap->addChild(testMonster, 1);
+//    monsterArray.push_back(testMonster);
     this->schedule([&](float dt){
         
         int bigPathNumber = static_cast<int>(_battlePathData.size());
@@ -301,7 +307,6 @@ void BattleLayer::_someTestCode(){
         Monster *testMonster = Monster::createWithName(GameData::getInstance()->monsterName.desertThug, _battlePathData[bigPathNumber * CCRANDOM_0_1()][smallPathNumber * CCRANDOM_0_1()]);
         _battleMap->addChild(testMonster, 1);
         monsterArray.push_back(testMonster);
-        
         
     }, 2, "TestCodeAddMonster");
     

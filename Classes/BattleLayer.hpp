@@ -57,6 +57,7 @@ private:
     float _mapMinScale;
     float _mapMaxScale;
     cocos2d::EventListenerTouchAllAtOnce *_touchListener;
+    cocos2d::EventListenerTouchOneByOne *_showPersonInfoTouchListener;
     
 #pragma mark - Private Method Member
     void _loadBattle();
@@ -65,6 +66,7 @@ private:
     void _loadBattleData();
     void _getMapRoad();
     
+    void _addShowPersonInfoTouchListener();
     
 #pragma mark - Some Test Code
     void _drawSomthingOnMap();

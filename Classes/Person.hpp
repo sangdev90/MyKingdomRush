@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include "cocos2d.h"
 
+class PersonActor;
+class BattleLifeBarSprite;
+
 class Person : public cocos2d::Sprite{
 public:
     
@@ -23,13 +26,22 @@ public:
     static Person *createMonsterByName(const std::string &name, const std::vector<cocos2d::Vec2> &path);
     static Person *createSoldierByName(const std::string &name);
     
+#pragma mark - Public None Virtual Method
+    cocos2d::Size getActorSize();
+    
 #pragma mark - Pure Virtual Method
     
     virtual void run() = 0;
     virtual void attack(Person *attackTarget) = 0;
     virtual void die() = 0;
+    virtual void loseBlood(int loseBloodValue) = 0; //TODO:这里是不是要一个非纯虚函数
+    virtual void addBlood(int addBloodValue) = 0;   //TODO:这里是不是要一个非纯虚函数
     
 #pragma mark - Impure Virtual Method
+    
+    virtual bool init();
+    virtual void onEnter();
+    virtual void onExit();
     
 #pragma mark - Public Data Member
     
@@ -37,7 +49,8 @@ public:
     
 protected:
     
-    cocos2d::Sprite *_actionSprite;
+    PersonActor *_personActor;
+    BattleLifeBarSprite *_lifeBar;
     
     std::string _name;  //for example : desertThug
     std::string _side;  //for example : monster || soldier
@@ -47,20 +60,8 @@ protected:
     int _runSpeed = 10;
     int _attackRange = 50;
     
-    
-    //MARK: Up is I want, Down is to be change
-    
-    int _numberOfAttackAnimationFrame;
-    cocos2d::Vector<cocos2d::SpriteFrame *> _attackAniamtionFrameArray;
-    int _numberOfDieAnimationFrame;
-    cocos2d::Vector<cocos2d::SpriteFrame*> _dieAnimationFrameArray;
-    int _numberOfForwardAnimationFrame;
-    cocos2d::Vector<cocos2d::SpriteFrame *> _runForwardAnimationFrameArray;
-    int _numberOfBackwardAnimationFrame;
-    cocos2d::Vector<cocos2d::SpriteFrame *> _runBackwardAnimationFrameArray;
-    int _numberOfTowardAnimationFrame;
-    cocos2d::Vector<cocos2d::SpriteFrame *> _runTowardAnimationFrameArray;
-    
+//    cocos2d::EventListenerTouchOneByOne *_touchListener;
+//    void _addTouchListener();
     
 };
 

@@ -64,6 +64,7 @@ inline void prepareWorldMap(){
 inline void prepareBattle(){
     cocos2d::SpriteFrameCache::getInstance()->removeSpriteFrames();
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BATTLE_UI_PLIST);
+    cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BATTLE_BASIC_PLIST);
 }
 
 inline void prepareMainMenu(){
@@ -200,25 +201,39 @@ inline void printBattleData(const BattleData &battleData){
     CCLOG("---------------------------------------------------------------------------------------");
 }
 
-//TODO: MonsterData改了 这里待修改
 /**
  *  打印 MonsterData
  *
  *  @param monsterData MonsterData
  */
-//inline void printMonsterData(const MonsterData &monsterData){
-//    CCLOG("Monster 数据：--------------------------------------------------------------------------");
-//    CCLOG("name: %s", monsterData.name.c_str());
-//    CCLOG("id: %d", monsterData.id);
-//    CCLOG("numberOfAttackFrame: %d", monsterData.numberOfAttackFrame);
-//    CCLOG("numberOfDieFrame: %d", monsterData.numberOfDieFrame);
-//    CCLOG("numberOfForwardFrame: %d", monsterData.numberOfForwardFrame);
-//    CCLOG("numberOfTowardFrame: %d", monsterData.numberOfTowardFrame);
-//    CCLOG("numberOfBcakwardFrame: %d", monsterData.numberOfBcakwardFrame);
-//    CCLOG("hp: %d", monsterData.hp);
-//    CCLOG("speed: %d", monsterData.speed);
-//    CCLOG("---------------------------------------------------------------------------------------");
-//}
+inline void printMonsterData(const MonsterData &monsterData){
+    CCLOG("Monster 数据：--------------------------------------------------------------------------");
+    CCLOG("MonsterName: %s", monsterData.name.c_str());
+    CCLOG("MonsterID  : %d", monsterData.id);
+    CCLOG("MonsterPhysicalAttack: %d", monsterData.physicalAttack);
+    CCLOG("MonsterMagicAttack   : %d", monsterData.magicAttack);
+    CCLOG("MonsterRemotePhysicalAttack: %d", monsterData.remotePhysicalAttack);
+    CCLOG("MonsterRemoteMagicAttack   : %d", monsterData.remoteMagicAttack);
+    CCLOG("MonsterPhysicalDefence     : %s", monsterData.physicalDefence.c_str());
+    CCLOG("MonsterMagicDefence        : %s", monsterData.magicDefence.c_str());
+    CCLOG("MonsterHealthPoint         : %d", monsterData.healthPoint);
+    CCLOG("MonsterSpeed               : %s", monsterData.speed.c_str());
+    CCLOG("MonsterCanAttack           : %d", monsterData.canAttack);
+    CCLOG("MonsterAttackState         : %s", monsterData.attackState.c_str());
+    CCLOG("MonsterBullet              : %s", monsterData.bullet.c_str());
+    CCLOG("MonsterAttackRange         : %d", monsterData.attackRange);
+    CCLOG("MonsterRemoteAttackRange   : %d", monsterData.remoteAttackRange);
+    CCLOG("MonsterAfterLife           : %s", monsterData.afterlife.c_str());
+    CCLOG("MonsterBounty              : %d", monsterData.bounty);
+    CCLOG("MonsterRunTowardFrameNumber: %d", monsterData.runTowardFrameNumber);
+    CCLOG("MonsterRunForwardFrameNumber : %d", monsterData.runForwardFrameNumber);
+    CCLOG("MonsterRunbackwardFrameNumber: %d", monsterData.runBackwardFrameNumber);
+    CCLOG("MonsterDieFrameNumber        : %d", monsterData.dieFrameNumber);
+    CCLOG("MonsterAttackFrameNumber     : %d", monsterData.attackFrameNumber);
+    CCLOG("MonsterAttackRemoteFrameNumber : %d", monsterData.attackRemoteFrameNumber);
+    CCLOG("MonsterReleaseSkillFrameNumber : %d", monsterData.releaseSkillFrameNumber);
+    CCLOG("---------------------------------------------------------------------------------------");
+}
 
 /**
  *  获取 Monster 动画帧文件名
@@ -238,10 +253,28 @@ inline std::string getMonsterAnimationFrameName(const std::string &monsterName, 
         animationOrderString = int2string(animationOrder);
     }
     
+    if (animationName == "forward" || animationName == "toward" || animationName == "backward"){
+        
+        std::string monsterAnimationFrameName = std::string("monster_animation_") + monsterName + "_run_" + animationName + "_" + animationOrderString + ".png";
+        //    CCLOG("%s, %s", __func__, monsterAnimationFrameName.c_str());
+        return monsterAnimationFrameName;
+    }
+    
     std::string monsterAnimationFrameName = std::string("monster_animation_") + monsterName + "_" + animationName + "_" + animationOrderString + ".png";
 //    CCLOG("%s, %s", __func__, monsterAnimationFrameName.c_str());
     return monsterAnimationFrameName;
     
+}
+
+/**
+ *  根据 Monster Frame Name 得到 SpriteFrame
+ *
+ *  @param monsterFrameName 名字
+ *
+ *  @return SpriteFrame
+ */
+inline cocos2d::SpriteFrame *getMonsterSpriteFrameByName(const std::string &monsterFrameName){
+    return cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(monsterFrameName);
 }
 
 /**
@@ -365,6 +398,50 @@ inline int getBattleLocalZOrderByActor(cocos2d::Node *actor){
     int yCoord = actor->getPosition().y;
     int zOrder = (battleHeight - yCoord) / stair + 100;
     return zOrder;
+}
+
+/**
+ 自定义字体名字枚举
+ */
+enum {
+    front_comic_book = 0,
+    front_obelix_pro,
+    front_soho_gothic_pro_medium,
+    front_toonish,
+    front_yikes
+};
+
+/**
+ *  创建一个自定义字体的 Label
+ *
+ *  @param string    Label 内容
+ *  @param size      Label 字体尺寸
+ *  @param frontName Label 字体名字，枚举值
+ *  @param color     Label 字体颜色
+ *
+ *  @return Label
+ */
+inline cocos2d::Label *createTTFLabelWithFrontName(const std::string &string, float size, int frontName, const cocos2d::Color3B &color){
+    
+    const std::vector<std::string> frontFilePathArray = {
+        "res/front/Comic_Book.ttf",
+        "res/front/ObelixPro.ttf",
+        "res/front/SohoGothicProMedium.ttf",
+        "res/front/TOONISH.ttf",
+        "res/front/YIKES.ttf"
+    };
+    
+    if (frontName > 4){
+        cocos2d::Label *label = cocos2d::Label::createWithSystemFont("字体名字不对！！！！", "Arial", size);
+        label->setColor(color);
+        return label;
+    }else {
+        std::string frontFilePathString = frontFilePathArray[frontName];
+        cocos2d::Label *label = cocos2d::Label::createWithTTF(string, frontFilePathString, size);
+        label->setColor(color);
+        return label;
+    }
+    
 }
 
 #pragma mark - Noninline Function

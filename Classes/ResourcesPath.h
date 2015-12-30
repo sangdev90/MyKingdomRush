@@ -11,11 +11,12 @@
 
 #include <stdio.h>
 
-const std::string MAINMENU_UI_PLIST = "res/image/mainmenu/mainmenu_spritesheet.plist";
-const std::string WAITLOAD_UI_PLIST = "res/image/waitload/waitload_spritesheet.plist";
-const std::string CREDITS_UI_PLIST  = "res/image/credits/credits_spritesheet.plist";
-const std::string WORLDMAP_UI_PLIST = "res/image/worldmap/worldmap_ui_spritesheet.plist";
-const std::string BATTLE_UI_PLIST   = "res/image/battle/battleui/battle_ui_spritesheet.plist";
+const std::string MAINMENU_UI_PLIST  = "res/image/mainmenu/mainmenu_spritesheet.plist";
+const std::string WAITLOAD_UI_PLIST  = "res/image/waitload/waitload_spritesheet.plist";
+const std::string CREDITS_UI_PLIST   = "res/image/credits/credits_spritesheet.plist";
+const std::string WORLDMAP_UI_PLIST  = "res/image/worldmap/worldmap_ui_spritesheet.plist";
+const std::string BATTLE_UI_PLIST    = "res/image/battle/battleui/battle_ui_spritesheet.plist";
+const std::string BATTLE_BASIC_PLIST = "res/image/battle/battle_basic.plist";
 
 const std::string CREDITS_DATA_JSON           = "res/data/credits.json";
 const std::string MONSTER_DATA_JSON           = "res/data/monster_data.json";
@@ -44,7 +45,6 @@ const std::string BATTLE_MAP_STAGE_12 = "res/image/battle/battlemap/stage12/batt
 const std::string BATTLE_MAP_STAGE_13 = "res/image/battle/battlemap/stage13/battle_map_stage_13.png";
 const std::string BATTLE_MAP_STAGE_14 = "res/image/battle/battlemap/stage14/battle_map_stage_14.png";
 const std::string BATTLE_MAP_STAGE_15 = "res/image/battle/battlemap/stage15/battle_map_stage_15.png";
-
 
 
 #endif /* ResourcesPath_h */

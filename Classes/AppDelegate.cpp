@@ -12,10 +12,23 @@ USING_NS_CC;
 
 void AppDelegate::testCode(){
     
-    GameData::getInstance()->loadMonsterData();
-    Scene *testScene = Scene::create();
-    Director::getInstance()->runWithScene(testScene);
+//    GameData::getInstance()->loadMonsterData();
+//    Scene *testScene = Scene::create();
+//    Director::getInstance()->runWithScene(testScene);
     
+    //战场
+    prepareBattle();
+    BattleScene *testBattleScene = BattleScene::create("stage_1");
+    Director::getInstance()->runWithScene(testBattleScene);
+    return;
+    
+    //世界地图
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(WORLDMAP_UI_PLIST);
+    Scene *testScene = Scene::create();
+    WorldMapToBattleLayer *testLayer = WorldMapToBattleLayer::create("stage_1");
+    testScene->addChild(testLayer);
+    Director::getInstance()->runWithScene(testScene);
+    return;//TODO:
 }
 
 AppDelegate::AppDelegate() {
@@ -57,18 +70,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Test
     this->testCode();
-    return true;
-    
-    prepareBattle();
-    BattleScene *testBattleScene = BattleScene::create("stage_1");
-    director->runWithScene(testBattleScene);
-    return true;
-    
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(WORLDMAP_UI_PLIST);
-    Scene *testScene = Scene::create();
-    WorldMapToBattleLayer *testLayer = WorldMapToBattleLayer::create("stage_1");
-    testScene->addChild(testLayer);
-    director->runWithScene(testScene);
     return true;
     
     auto scene = MainMenu::createScene(true);

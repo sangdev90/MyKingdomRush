@@ -33,6 +33,8 @@ public:
     virtual void run() override;
     virtual void attack(Person *attackTarget) override;
     virtual void die() override;
+    virtual void loseBlood(int loseBloodValue) override;
+    virtual void addBlood(int addBloodValue) override;
     virtual void update(float dt) override;
     
 #pragma mark - Member Method
@@ -59,8 +61,14 @@ protected:
     
     void _initMonsterData();
     void _initAnimationData();
+    void _initMonsterActor();
+    void _initLifeBar();
     void _initBattleMapData();
+    
     void _makeFaceTo();
+    
+    //MARK:Test
+    void _testCode();
 };
 
 #endif /* Monster_hpp */
