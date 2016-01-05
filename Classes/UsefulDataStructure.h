@@ -11,13 +11,38 @@
 
 #include <stdio.h>
 
-class BattlePersonInfoData{
+class BattleHeroInfoData{
 public:
-    std::string name;
-    std::string data1;
-    std::string data2;
-    std::string data3;
-    std::string data4;
+    //TODO:
+};
+
+class BattleTowerInfoData{
+public:
+    std::string name = "none";
+    std::string attackTime = "none";
+    std::string scope = "none";
+};
+
+class BattleMonsterInfoData{
+public:
+    std::string name = "none";
+    int fullHP = 0;
+    int currentHP = 0;
+    int highAttack = 0;
+    int lowAttack = 0;
+    std::string defence = "none";
+    int life = 0;
+};
+
+class BattleBossInfoData{
+public:
+    //TODO:
+};
+
+class BattlePowerInfoData{
+public:
+    std::string name = "none";
+    std::string description = "none";
 };
 
 #endif /* UsefulDataStructure_h */

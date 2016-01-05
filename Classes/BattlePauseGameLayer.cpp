@@ -9,6 +9,7 @@
 #include "BattlePauseGameLayer.hpp"
 #include "ResourcesPath.h"
 #include "ToolFunction.hpp"
+#include "StateButton.hpp"
 
 USING_NS_CC;
 
@@ -121,7 +122,79 @@ void BattlePauseGameLayer::_layoutUI(){
     _backgroundLayer->addChild(boardCenter3, 1);
     _backgroundLayer->addChild(boardButtom, 1);
     
-    //TODO:12,31
+    Size viewSize = boardCenter1->getContentSize();
+    float offsetX = viewSize.width / 3 - 50;
+    
+    Sprite *iconBackground1 = Sprite::createWithSpriteFrameName("battle_ui_icon_background.png");
+    iconBackground1->setPosition(visibleSize.width / 2 - offsetX, 350);
+    _backgroundLayer->addChild(iconBackground1, 2);
+    
+    Sprite *iconBackground2 = Sprite::createWithSpriteFrameName("battle_ui_icon_background.png");
+    iconBackground2->setPosition(visibleSize.width / 2, 350);
+    _backgroundLayer->addChild(iconBackground2, 2);
+    
+    Sprite *iconBackground3 = Sprite::createWithSpriteFrameName("battle_ui_icon_background.png");
+    iconBackground3->setPosition(visibleSize.width / 2 + offsetX, 350);
+    _backgroundLayer->addChild(iconBackground3, 2);
+    
+    //TODO:下面几个按钮的 callback
+    
+    StateButton *musicButton = StateButton::createStateButton("battle_ui_icon_sound.png", "battle_ui_icon_close.png");
+    musicButton->setState(StateButtonOn);
+    musicButton->setChangeToOnCallback([&](){
+        CCLOG("Music On!");
+    });
+    musicButton->setChangeToOffCallback([&](){
+        CCLOG("Music Off!");
+    });
+    musicButton->setPosition(iconBackground1->getPosition());
+    _backgroundLayer->addChild(musicButton, 3);
+    
+    StateButton *soundButton = StateButton::createStateButton("battle_ui_pause_icon_music.png", "battle_ui_icon_close.png");
+    soundButton->setState(StateButtonOn);
+    soundButton->setChangeToOnCallback([&](){
+        CCLOG("Sound On!");
+    });
+    soundButton->setChangeToOffCallback([&](){
+        CCLOG("Sound Off!");
+    });
+    soundButton->setPosition(iconBackground2->getPosition());
+    _backgroundLayer->addChild(soundButton, 3);
+    
+    StateButton *vibrateButton = StateButton::createStateButton("battle_ui_icon_vibrate.png", "battle_ui_icon_close.png");
+    vibrateButton->setState(StateButtonOn);
+    vibrateButton->setChangeToOnCallback([&](){
+        CCLOG("Vibrate On!");
+    });
+    vibrateButton->setChangeToOffCallback([&](){
+        CCLOG("Vibrate Off!");
+    });
+    vibrateButton->setPosition(iconBackground3->getPosition());
+    _backgroundLayer->addChild(vibrateButton, 3);
+    
+    ui::Button *restartButton = createScaleButtonWithTwoSpriteFrameNameAndCallback("battle_ui_button_restart.png", "battle_ui_button_restart.png", [&](Ref *sender, ui::Widget::TouchEventType touchType){
+        if (touchType == ui::Widget::TouchEventType::ENDED){
+            CCLOG("Restart");
+        }
+    });
+    restartButton->setPosition(Vec2(visibleSize.width / 2 - 200, 200));
+    _backgroundLayer->addChild(restartButton, 2);
+    
+    ui::Button *quitButton = createScaleButtonWithTwoSpriteFrameNameAndCallback("battle_ui_button_quit.png", "battle_ui_button_quit.png", [&](Ref *sender, ui::Widget::TouchEventType touchType){
+        if (touchType == ui::Widget::TouchEventType::ENDED){
+            CCLOG("Quit");
+        }
+    });
+    quitButton->setPosition(Vec2(visibleSize.width / 2 + 200, 200));
+    _backgroundLayer->addChild(quitButton, 2);
+    
+    ui::Button *closeButton = createButtonWithTwoSpriteFrameNameAndCallback("battle_ui_button_close.png", "battle_ui_button_close_on.png", [&](Ref *sender, ui::Widget::TouchEventType touchType){
+        if (touchType == ui::Widget::TouchEventType::ENDED){
+            CCLOG("Close!");
+        }
+    });
+    closeButton->setPosition(Vec2(visibleSize.width / 2 + 400, 500));
+    _backgroundLayer->addChild(closeButton, 2);
     
 }
 

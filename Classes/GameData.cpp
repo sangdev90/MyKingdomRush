@@ -62,8 +62,10 @@ void GameData::loadMonsterData(){
             
             oneMonsterData.name                    = jsonDocoment[monsterNameString.c_str()]["name"].GetString();
             oneMonsterData.id                      = jsonDocoment[monsterNameString.c_str()]["id"].GetInt();
-            oneMonsterData.physicalAttack          = jsonDocoment[monsterNameString.c_str()]["physicalAttack"].GetInt();
-            oneMonsterData.magicAttack             = jsonDocoment[monsterNameString.c_str()]["magicAttack"].GetInt();
+            oneMonsterData.lowPhysicalAttack       = jsonDocoment[monsterNameString.c_str()]["lowPhysicalAttack"].GetInt();
+            oneMonsterData.highPhysicalAttack      = jsonDocoment[monsterNameString.c_str()]["highPhysicalAttack"].GetInt();
+            oneMonsterData.lowMagicAttack          = jsonDocoment[monsterNameString.c_str()]["lowMagicAttack"].GetInt();
+            oneMonsterData.highPhysicalAttack      = jsonDocoment[monsterNameString.c_str()]["highPhysicalAttack"].GetInt();
             oneMonsterData.remotePhysicalAttack    = jsonDocoment[monsterNameString.c_str()]["remotePhysicalAttack"].GetInt();
             oneMonsterData.remoteMagicAttack       = jsonDocoment[monsterNameString.c_str()]["remoteMagicAttack"].GetInt();
             oneMonsterData.physicalDefence         = jsonDocoment[monsterNameString.c_str()]["physicalDefence"].GetString();
@@ -90,36 +92,38 @@ void GameData::loadMonsterData(){
         }
     }
     
-//    CCLOG("STL 中的 Monster Data--------------------------------------------------------------------------------");
-//    for (std::string monsterNameString : monsterNameVector){
-//        CCLOG("**************************************************");
-//        CCLOG("MonsterName: %s", monsterData[monsterNameString].name.c_str());
-//        CCLOG("MonsterID  : %d", monsterData[monsterNameString].id);
-//        CCLOG("MonsterPhysicalAttack: %d", monsterData[monsterNameString].physicalAttack);
-//        CCLOG("MonsterMagicAttack   : %d", monsterData[monsterNameString].magicAttack);
-//        CCLOG("MonsterRemotePhysicalAttack: %d", monsterData[monsterNameString].remotePhysicalAttack);
-//        CCLOG("MonsterRemoteMagicAttack   : %d", monsterData[monsterNameString].remoteMagicAttack);
-//        CCLOG("MonsterPhysicalDefence     : %s", monsterData[monsterNameString].physicalDefence.c_str());
-//        CCLOG("MonsterMagicDefence        : %s", monsterData[monsterNameString].magicDefence.c_str());
-//        CCLOG("MonsterHealthPoint         : %d", monsterData[monsterNameString].healthPoint);
-//        CCLOG("MonsterSpeed               : %s", monsterData[monsterNameString].speed.c_str());
-//        CCLOG("MonsterCanAttack           : %d", monsterData[monsterNameString].canAttack);
-//        CCLOG("MonsterAttackState         : %s", monsterData[monsterNameString].attackState.c_str());
-//        CCLOG("MonsterBullet              : %s", monsterData[monsterNameString].bullet.c_str());
-//        CCLOG("MonsterAttackRange         : %d", monsterData[monsterNameString].attackRange);
-//        CCLOG("MonsterRemoteAttackRange   : %d", monsterData[monsterNameString].remoteAttackRange);
-//        CCLOG("MonsterAfterLife           : %s", monsterData[monsterNameString].afterlife.c_str());
-//        CCLOG("MonsterBounty              : %d", monsterData[monsterNameString].bounty);
-//        CCLOG("MonsterRunTowardFrameNumber: %d", monsterData[monsterNameString].runTowardFrameNumber);
-//        CCLOG("MonsterRunForwardFrameNumber : %d", monsterData[monsterNameString].runForwardFrameNumber);
-//        CCLOG("MonsterRunbackwardFrameNumber: %d", monsterData[monsterNameString].runBackwardFrameNumber);
-//        CCLOG("MonsterDieFrameNumber        : %d", monsterData[monsterNameString].dieFrameNumber);
-//        CCLOG("MonsterAttackFrameNumber     : %d", monsterData[monsterNameString].attackFrameNumber);
-//        CCLOG("MonsterAttackRemoteFrameNumber : %d", monsterData[monsterNameString].attackRemoteFrameNumber);
-//        CCLOG("MonsterReleaseSkillFrameNumber : %d", monsterData[monsterNameString].releaseSkillFrameNumber);
-//        CCLOG("**************************************************");
-//    }
-//    CCLOG("-----------------------------------------------------------------------------------------------------");
+    CCLOG("STL 中的 Monster Data--------------------------------------------------------------------------------");
+    for (std::string monsterNameString : monsterNameVector){
+        CCLOG("**************************************************");
+        CCLOG("MonsterName: %s", monsterData[monsterNameString].name.c_str());
+        CCLOG("MonsterID  : %d", monsterData[monsterNameString].id);
+        CCLOG("MonsterLowPhysicalAttack: %d", monsterData[monsterNameString].lowPhysicalAttack);
+        CCLOG("MonsterHighPhysicalAttack: %d", monsterData[monsterNameString].highPhysicalAttack);
+        CCLOG("MonsterLowMagicAttack   : %d", monsterData[monsterNameString].lowMagicAttack);
+        CCLOG("MonsterHighMagicAttack   : %d", monsterData[monsterNameString].highMagicAttack);
+        CCLOG("MonsterRemotePhysicalAttack: %d", monsterData[monsterNameString].remotePhysicalAttack);
+        CCLOG("MonsterRemoteMagicAttack   : %d", monsterData[monsterNameString].remoteMagicAttack);
+        CCLOG("MonsterPhysicalDefence     : %s", monsterData[monsterNameString].physicalDefence.c_str());
+        CCLOG("MonsterMagicDefence        : %s", monsterData[monsterNameString].magicDefence.c_str());
+        CCLOG("MonsterHealthPoint         : %d", monsterData[monsterNameString].healthPoint);
+        CCLOG("MonsterSpeed               : %s", monsterData[monsterNameString].speed.c_str());
+        CCLOG("MonsterCanAttack           : %d", monsterData[monsterNameString].canAttack);
+        CCLOG("MonsterAttackState         : %s", monsterData[monsterNameString].attackState.c_str());
+        CCLOG("MonsterBullet              : %s", monsterData[monsterNameString].bullet.c_str());
+        CCLOG("MonsterAttackRange         : %d", monsterData[monsterNameString].attackRange);
+        CCLOG("MonsterRemoteAttackRange   : %d", monsterData[monsterNameString].remoteAttackRange);
+        CCLOG("MonsterAfterLife           : %s", monsterData[monsterNameString].afterlife.c_str());
+        CCLOG("MonsterBounty              : %d", monsterData[monsterNameString].bounty);
+        CCLOG("MonsterRunTowardFrameNumber: %d", monsterData[monsterNameString].runTowardFrameNumber);
+        CCLOG("MonsterRunForwardFrameNumber : %d", monsterData[monsterNameString].runForwardFrameNumber);
+        CCLOG("MonsterRunbackwardFrameNumber: %d", monsterData[monsterNameString].runBackwardFrameNumber);
+        CCLOG("MonsterDieFrameNumber        : %d", monsterData[monsterNameString].dieFrameNumber);
+        CCLOG("MonsterAttackFrameNumber     : %d", monsterData[monsterNameString].attackFrameNumber);
+        CCLOG("MonsterAttackRemoteFrameNumber : %d", monsterData[monsterNameString].attackRemoteFrameNumber);
+        CCLOG("MonsterReleaseSkillFrameNumber : %d", monsterData[monsterNameString].releaseSkillFrameNumber);
+        CCLOG("**************************************************");
+    }
+    CCLOG("-----------------------------------------------------------------------------------------------------");
     
 }
 

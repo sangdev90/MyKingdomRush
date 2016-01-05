@@ -14,6 +14,8 @@
 #include <math.h>
 #include <vector>
 #include "cocos2d.h"
+#include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
 #include "ResourcesPath.h"
 #include "BattleData.hpp"
 #include "MonsterData.hpp"
@@ -46,10 +48,40 @@ inline cocos2d::Menu *createMenuWithSpriteByThreeTextureAndCallback(const std::s
 
 inline cocos2d::Menu *createMenuWithImageByThreeTextureAndCallback(const std::string &normalTexture, const std::string &selectedTexture, const std::string &disabledTexture, const cocos2d::ccMenuCallback &callback){
     
-    cocos2d::MenuItemImage *itemImage = cocos2d::MenuItemImage::create(normalTexture, selectedTexture, disabledTexture, callback);
-    cocos2d::Menu *menu = cocos2d::Menu::create(itemImage, NULL);
-    return menu;
+    if (normalTexture.substr(0, 4) == "res/"){
+        cocos2d::MenuItemImage *itemImage = cocos2d::MenuItemImage::create(normalTexture, selectedTexture, disabledTexture, callback);
+        cocos2d::Menu *menu = cocos2d::Menu::create(itemImage, NULL);
+        return menu;
+    }else {
+        cocos2d::MenuItemImage *itemImage = cocos2d::MenuItemImage::create();
+        cocos2d::SpriteFrame *normalSpriteFrame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(normalTexture);
+        cocos2d::SpriteFrame *selectedSpriteFrame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(selectedTexture);
+        cocos2d::SpriteFrame *disabledSpriteFrame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(disabledTexture);
+        itemImage->setNormalSpriteFrame(normalSpriteFrame);
+        itemImage->setSelectedSpriteFrame(selectedSpriteFrame);
+        itemImage->setDisabledSpriteFrame(disabledSpriteFrame);
+        cocos2d::Menu *menu = cocos2d::Menu::create(itemImage, NULL);
+        return menu;
+    }
+}
+
+inline cocos2d::ui::Button *createButtonWithTwoSpriteFrameNameAndCallback(const std::string &normalSpriteFrameName, const std::string &selectedSpriteFrameName, const std::function<void (cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType touchType)> &callback){
     
+    cocos2d::ui::Button *button = cocos2d::ui::Button::create();
+    button->setTouchEnabled(true);
+    button->loadTextures(normalSpriteFrameName, selectedSpriteFrameName, "", cocos2d::ui::TextureResType::PLIST);
+    button->addTouchEventListener(static_cast<cocos2d::ui::Widget::ccWidgetTouchCallback>(callback));
+    return button;
+}
+
+inline cocos2d::ui::Button *createScaleButtonWithTwoSpriteFrameNameAndCallback(const std::string &normalSpriteFrameName, const std::string &selectedSpriteFrameName, const std::function<void (cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType touchType)> &callback){
+    
+    cocos2d::ui::Button *button = cocos2d::ui::Button::create();
+    button->setTouchEnabled(true);
+    button->loadTextures(normalSpriteFrameName, selectedSpriteFrameName, "", cocos2d::ui::Widget::TextureResType::PLIST);
+    button->setPressedActionEnabled(true);
+    button->addTouchEventListener(static_cast<cocos2d::ui::Widget::ccWidgetTouchCallback>(callback));
+    return button;
 }
 
 inline void loadWorldMapSpriteSheet(){
@@ -210,8 +242,10 @@ inline void printMonsterData(const MonsterData &monsterData){
     CCLOG("Monster 数据：--------------------------------------------------------------------------");
     CCLOG("MonsterName: %s", monsterData.name.c_str());
     CCLOG("MonsterID  : %d", monsterData.id);
-    CCLOG("MonsterPhysicalAttack: %d", monsterData.physicalAttack);
-    CCLOG("MonsterMagicAttack   : %d", monsterData.magicAttack);
+    CCLOG("MonsterLowPhysicalAttack: %d", monsterData.lowPhysicalAttack);
+    CCLOG("MonsterHighPhysicalAttack: %d", monsterData.highPhysicalAttack);
+    CCLOG("MonsterLowMagicAttack   : %d", monsterData.lowMagicAttack);
+    CCLOG("MonsterHighMagicAttack   : %d", monsterData.highMagicAttack);
     CCLOG("MonsterRemotePhysicalAttack: %d", monsterData.remotePhysicalAttack);
     CCLOG("MonsterRemoteMagicAttack   : %d", monsterData.remoteMagicAttack);
     CCLOG("MonsterPhysicalDefence     : %s", monsterData.physicalDefence.c_str());

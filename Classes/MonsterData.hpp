@@ -18,8 +18,10 @@ public:
     int id;
     std::string name;
     
-    int physicalAttack;
-    int magicAttack;
+    int highPhysicalAttack;
+    int lowPhysicalAttack;
+    int highMagicAttack;
+    int lowMagicAttack;
     int remotePhysicalAttack;
     int remoteMagicAttack;
     std::string physicalDefence;
@@ -32,6 +34,7 @@ public:
     int attackRange;
     int remoteAttackRange;
     std::string afterlife;
+    int life;
     int bounty;
     
     int runTowardFrameNumber;

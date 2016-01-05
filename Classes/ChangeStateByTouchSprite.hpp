@@ -12,4 +12,11 @@
 #include <stdio.h>
 #include "cocos2d.h"
 
+class ChangeStateByTouchSprite : public cocos2d::Sprite{
+public:
+    
+private:
+    
+};
+
 #endif /* ChangeStateByTouchSprite_hpp */
